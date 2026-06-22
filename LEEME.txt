@@ -1,0 +1,88 @@
+STRAVEN — Catálogo Mayorista
+============================
+
+CÓMO ABRIR EL SITIO
+--------------------
+Abre el archivo "index.html" con doble clic (se abre en tu navegador).
+También puedes subir toda esta carpeta a cualquier hosting (Hostinger,
+Netlify, cPanel, etc.) tal como está — no necesita instalación ni base
+de datos, son archivos estáticos.
+
+
+⚠️ ANTES DE PUBLICARLO: configura tu WhatsApp
+-----------------------------------------------
+El botón "Enviar pedido por WhatsApp" usa un NÚMERO DE EJEMPLO.
+Ábrelo y cámbialo:
+
+  Archivo:  js/config.js
+  Línea:    whatsappNumber: "521234567890"
+
+Reemplázalo por tu número real con código de país, sin espacios ni signos
+(ejemplo real para México: "5215512345678").
+
+
+CÓMO AGREGAR UN PAQUETE NUEVO
+-------------------------------
+1. Dentro de "img/PAQUETES/" crea una carpeta con un código corto para tu
+   paquete (ejemplo: P60TN). Ese código es la "CARPETA".
+
+2. Dentro de esa carpeta coloca:
+     principal.jpg         -> la foto que aparece en la tarjeta
+     logos/                -> logos de las marcas incluidas (opcional)
+     detalles/              -> fotos de detalle (etiquetas, costuras, etc.)
+     fotos individuales/   -> fotos de cada modelo/pieza
+     foto grupal/           -> fotos del paquete completo
+     video/                 -> un video del paquete (.mp4)
+
+   No es necesario que estén las 5 carpetas ni una cantidad exacta de
+   fotos — el sitio solo muestra lo que realmente exista. Si una carpeta
+   está vacía o no existe, esa sección simplemente no aparece.
+
+3. Agrega una fila en "img/PAQUETES/PAQUETES.csv" con los datos del
+   paquete (Nombre, Categoría, Pzas, Precio Unitario, Precio Total,
+   Descripción, Marcas, Presentaciones, Tallas, Peso, Medidas, Extras)
+   y en la columna CARPETA pon el mismo código que usaste en el paso 1.
+
+4. Regenera el sitio. Dos formas:
+     a) Pídele a Claude (en este mismo proyecto): "agregué paquetes
+        nuevos, regenera el catálogo".
+     b) Tú mismo, desde una terminal:
+          cd "_generador/scripts"
+          python3 generar_sitio.py
+        (necesitas Python 3 y la librería jinja2: si falta, instálala con
+         "pip install jinja2 --break-system-packages")
+
+Esto vuelve a generar "index.html" y todas las páginas dentro de
+"productos/" automáticamente, leyendo el CSV y escaneando las carpetas
+de fotos. NUNCA edites index.html ni productos/*.html a mano — esos
+se reescriben cada vez que se regenera el sitio. Si quieres cambiar el
+diseño, edita los archivos en "_generador/templates/" o "css/styles.css".
+
+
+ESTRUCTURA DEL PROYECTO
+-------------------------
+index.html              -> Home del catálogo (generado, no editar a mano)
+productos/*.html         -> Una página por paquete (generado, no editar a mano)
+css/styles.css           -> Todo el diseño visual del sitio
+js/config.js             -> Número de WhatsApp y datos del negocio
+js/cart.js                -> Lógica del carrito (localStorage + WhatsApp)
+js/main.js                -> Filtros de categoría en el home
+js/product.js             -> Galería de fotos/video y "Agregar al carrito"
+img/                      -> Logos de STRAVEN + carpeta PAQUETES con todo
+                             el material de cada paquete + el CSV maestro
+_generador/                -> El "motor" que construye el sitio a partir
+                             del CSV y las fotos (scripts/ + templates/)
+
+
+NOTAS SOBRE LOS DATOS ACTUALES
+---------------------------------
+- Solo el paquete "P50SA" (Shampoos/Acondicionador) tiene fotos y video
+  reales por ahora; los otros 7 paquetes del CSV muestran una imagen
+  "Foto próximamente" porque sus carpetas aún están vacías. En cuanto
+  subas las fotos y regeneres, aparecerán automáticamente.
+- Varias filas del CSV comparten el mismo texto de "Descripción" (el de
+  los jeans Levi's). Conviene escribir una descripción única por paquete
+  para mejorar la conversión.
+- En la fila de "Paquete de 50 Shampoos" la columna Tallas tiene un
+  pequeño error de captura: "...,12,oz,12.5oz" debería ser "...,12oz,12.5oz"
+  (la coma de más separa "12" y "oz" en dos elementos distintos).

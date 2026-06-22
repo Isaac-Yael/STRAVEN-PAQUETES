@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page_title }}</title>
+<meta name="description" content="{% block meta_desc %}Paquetes de mercancía 100% original importada de Estados Unidos, al mayoreo. Ideal para revendedores, mayoristas y dueños de negocio.{% endblock %}">
+<link rel="icon" type="image/webp" href="{{ asset_prefix }}img/logo_ch.webp">
+<link rel="stylesheet" href="{{ asset_prefix }}css/styles.css">
+</head>
+<body>
+<div class="bg-glow"></div>
+{% include "header.html.j2" %}
+
+<div class="trust-bar">
+  <div class="container trust-list">
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>100% Original</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="14" height="11"/><path d="M15 9h4l3 3v5h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg>Importado de EUA</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 1 1-4-7.2"/><path d="M21 4l-9 9-3-3"/></svg>Atención directa por WhatsApp</span>
+    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.6 13.4 13 21l-9-9 7.6-7.6H20.6z"/><circle cx="14.5" cy="9.5" r="1.5"/></svg>Precio de mayorista</span>
+  </div>
+</div>
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+{% include "footer.html.j2" %}
+{% include "cart_drawer.html.j2" %}
+
+<script src="{{ asset_prefix }}js/config.js"></script>
+<script src="{{ asset_prefix }}js/cart.js"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

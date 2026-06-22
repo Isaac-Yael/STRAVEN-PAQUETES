@@ -1,0 +1,21 @@
+<a href="{{ p.url }}" class="card">
+  <div class="card-media">
+    {% if p.logos %}
+    <div class="card-logos">
+      {% for logo in p.logos[:3] %}<img src="{{ logo }}" class="logo-chip" alt="">{% endfor %}
+    </div>
+    {% endif %}
+    <span class="badge-original">100% Original</span>
+    <img class="card-img" src="{{ p.principal }}" alt="{{ p.nombre }}" loading="lazy">
+  </div>
+  <div class="card-body">
+    <span class="card-cat">{{ p.categoria }}</span>
+    <h3 class="card-title">{{ p.nombre }}</h3>
+    <div class="card-price-row">
+      <span class="card-price">{{ p.precio_total }}</span>
+      <span class="card-price-label">por paquete</span>
+    </div>
+    <div class="card-unit">{{ p.precio_unitario }} c/u · {{ p.pzas }} pzas</div>
+  </div>
+  <div class="card-cta">Ver detalles del paquete →</div>
+</a>

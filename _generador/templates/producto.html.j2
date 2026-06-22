@@ -1,0 +1,126 @@
+{% extends "base.html.j2" %}
+{% block meta_desc %}{{ p.meta_desc }}{% endblock %}
+{% block content %}
+<div class="container product-nav">
+  <a href="{{ asset_prefix }}index.html" class="back-link">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>
+    Volver al catálogo
+  </a>
+</div>
+
+<div class="container product-top">
+  <div class="product-grid">
+
+    <div class="gallery">
+      <div class="gallery-main" id="gallery-main">
+        <img src="{{ p.principal }}" alt="{{ p.nombre }}">
+      </div>
+      <div class="gallery-tabs" id="gallery-tabs"></div>
+      <div class="thumbs" id="thumbs"></div>
+    </div>
+
+    <div class="buy-box">
+      <div class="buy-eyebrow">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+        100% Original · Importado de EUA
+      </div>
+      <h1 class="buy-title">{{ p.nombre }}</h1>
+
+      {% if p.logos %}
+      <div class="brand-logos">
+        {% for logo in p.logos %}<img src="{{ logo }}" class="brand-logo-chip" alt="Marca incluida en el paquete">{% endfor %}
+      </div>
+      {% endif %}
+
+      <div class="buy-price-block">
+        <span class="buy-price">{{ p.precio_total }}</span>
+        <span class="buy-price-label">precio del paquete completo</span>
+      </div>
+      <div class="buy-unit">{{ p.precio_unitario }} c/u · {{ p.pzas }} piezas · {{ p.categoria }}</div>
+
+      <div class="spec-mini-grid">
+        <div class="spec-mini">
+          <div class="spec-mini-label">Piezas</div>
+          <div class="spec-mini-value">{{ p.pzas }}</div>
+        </div>
+        <div class="spec-mini">
+          <div class="spec-mini-label">Marcas</div>
+          <div class="spec-mini-value">{{ p.marcas|join(", ") if p.marcas else "—" }}</div>
+        </div>
+        <div class="spec-mini">
+          <div class="spec-mini-label">Peso</div>
+          <div class="spec-mini-value">{{ p.peso or "—" }}</div>
+        </div>
+        <div class="spec-mini">
+          <div class="spec-mini-label">Medidas</div>
+          <div class="spec-mini-value">{{ p.medidas or "—" }}</div>
+        </div>
+      </div>
+
+      <div class="qty-row">
+        <span class="qty-row-label">Cantidad de paquetes</span>
+        <div class="qty-stepper">
+          <button class="js-qty-dec" aria-label="Restar">−</button>
+          <span class="js-qty-value">1</span>
+          <button class="js-qty-inc" aria-label="Sumar">+</button>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-block js-add-to-cart">Agregar al Carrito</button>
+      <div class="added-toast" id="added-toast">✓ Paquete agregado a tu pedido</div>
+
+      {% if p.extras %}
+      <div class="extras-box">
+        <div class="extras-title">Este paquete incluye</div>
+        <ul class="extras-list">
+          {% for e in p.extras %}
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
+            {{ e }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="detail-lower">
+    <div>
+      <h2 class="block-title">Descripción</h2>
+      <p class="desc-text">{{ p.descripcion }}</p>
+    </div>
+    <div>
+      <h2 class="block-title">Especificaciones completas</h2>
+      <table class="specs-table">
+        {% for label, value in p.specs %}
+        <tr><td>{{ label }}</td><td>{{ value }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  {% if others %}
+  <div class="related">
+    <div class="cat-heading"><h2>También te puede interesar</h2></div>
+    <div class="grid">
+      {% for p in others %}
+      {% include "card.html.j2" %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<div class="mobile-buybar">
+  <div class="mobile-buybar-price">
+    <div class="p">{{ p.precio_total }}</div>
+    <div class="u">{{ p.precio_unitario }} c/u</div>
+  </div>
+  <button class="btn btn-primary js-add-to-cart">Agregar</button>
+</div>
+
+<script type="application/json" id="gallery-data">{{ gallery_json|safe }}</script>
+<script type="application/json" id="product-data">{{ product_json|safe }}</script>
+{% endblock %}
+{% block extra_scripts %}<script src="{{ asset_prefix }}js/product.js"></script>{% endblock %}
