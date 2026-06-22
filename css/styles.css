@@ -161,8 +161,7 @@ h1,h2,h3,h4,p{ margin:0; }
   color: #0a0a0a;
 }
 
-/* ---------- Secciones por categoría ---------- */
-.cat-section{ padding: 34px 0 6px; }
+/* ---------- Encabezado de sección (usado en "relacionados") ---------- */
 .cat-heading{
   display:flex; align-items:baseline; gap:12px;
   margin-bottom: 18px;
@@ -287,6 +286,8 @@ h1,h2,h3,h4,p{ margin:0; }
 .btn:active{ transform: scale(.98); }
 .btn-primary{ background: var(--green); color:#0a0a0a; }
 .btn-primary:hover{ filter: brightness(1.08); }
+.btn-secondary{ background: var(--bg-elev-2); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover{ border-color: var(--green); color: var(--green); }
 .btn-block{ width:100%; }
 .btn[disabled]{ opacity:.5; pointer-events:none; }
 
@@ -478,6 +479,8 @@ h1,h2,h3,h4,p{ margin:0; }
 .qty-row .qty-stepper span{ width:42px; font-size:15px; }
 .qty-row-label{ font-size:14px; font-weight:700; color: var(--text-dim); }
 
+.buy-actions{ display:flex; flex-direction:column; gap:10px; }
+
 .extras-box{
   margin-top: 18px;
   background: var(--green-glow);
@@ -528,10 +531,26 @@ h1,h2,h3,h4,p{ margin:0; }
 .mobile-buybar-price{ flex:1; min-width:0; }
 .mobile-buybar-price .p{ font-size:18px; font-weight:800; color: var(--green); }
 .mobile-buybar-price .u{ font-size:11.5px; color: var(--text-faint); }
+.mobile-buybar-actions{ display:flex; gap:8px; flex:none; }
+.mobile-buybar-actions .btn{ padding: 11px 16px; font-size:13px; white-space:nowrap; }
 @media (max-width: 900px){
   .mobile-buybar{ display:flex; }
   .buy-box{ position:static; }
   body{ padding-bottom: 84px; }
+}
+
+/* ---------- Botón flotante de WhatsApp ---------- */
+.whatsapp-float{
+  position: fixed; right: 22px; bottom: 22px; z-index: 70;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; color: #fff;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 10px 24px -8px rgba(0,0,0,.6);
+  transition: transform .15s ease;
+}
+.whatsapp-float:hover{ transform: scale(1.07); }
+@media (max-width: 900px){
+  .whatsapp-float{ bottom: 96px; }
 }
 
 /* Breadcrumb / volver */

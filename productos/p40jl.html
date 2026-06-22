@@ -92,7 +92,10 @@
         </div>
       </div>
 
-      <button class="btn btn-primary btn-block js-add-to-cart">Agregar al Carrito</button>
+      <div class="buy-actions">
+        <button type="button" class="btn btn-primary btn-block js-buy-now" id="buy-now-btn">Comprar Ahora</button>
+        <button type="button" class="btn btn-secondary btn-block js-add-to-cart">Agregar al Carrito</button>
+      </div>
       <div class="added-toast" id="added-toast">✓ Paquete agregado a tu pedido</div>
 
       <div class="extras-box">
@@ -134,7 +137,7 @@ Ideal para revendedores y negocios que buscan mercancía de alta rotación, exce
   <div class="related">
     <div class="cat-heading"><h2>También te puede interesar</h2></div>
     <div class="grid">
-<a href="../productos/p50sa.html" class="card">
+<a href="../productos/p50sa.html" class="card" data-cat="salud-y-belleza">
   <div class="card-media">
     <div class="card-logos">
 <img src="../img/PAQUETES/P50SA/logos/1.jpg" class="logo-chip" alt=""><img src="../img/PAQUETES/P50SA/logos/2.jpg" class="logo-chip" alt=""><img src="../img/PAQUETES/P50SA/logos/3.jpg" class="logo-chip" alt="">    </div>
@@ -151,7 +154,7 @@ Ideal para revendedores y negocios que buscan mercancía de alta rotación, exce
     <div class="card-unit">$75.00 c/u · 50 pzas</div>
   </div>
   <div class="card-cta">Ver detalles del paquete →</div>
-</a><a href="../productos/p40ml.html" class="card">
+</a><a href="../productos/p40ml.html" class="card" data-cat="mix">
   <div class="card-media">
     <span class="badge-original">100% Original</span>
     <img class="card-img" src="../img/placeholder.svg" alt="Paquete Mix de 40 pzas LEVIS" loading="lazy">
@@ -166,7 +169,7 @@ Ideal para revendedores y negocios que buscan mercancía de alta rotación, exce
     <div class="card-unit">$285.00 c/u · 40 pzas</div>
   </div>
   <div class="card-cta">Ver detalles del paquete →</div>
-</a><a href="../productos/p24tr.html" class="card">
+</a><a href="../productos/p24tr.html" class="card" data-cat="tenis">
   <div class="card-media">
     <span class="badge-original">100% Original</span>
     <img class="card-img" src="../img/placeholder.svg" alt="Paquete de 24 Tenis Reebok" loading="lazy">
@@ -181,7 +184,7 @@ Ideal para revendedores y negocios que buscan mercancía de alta rotación, exce
     <div class="card-unit">$649.00 c/u · 24 pzas</div>
   </div>
   <div class="card-cta">Ver detalles del paquete →</div>
-</a><a href="../productos/p500cm.html" class="card">
+</a><a href="../productos/p500cm.html" class="card" data-cat="calcetines">
   <div class="card-media">
     <span class="badge-original">100% Original</span>
     <img class="card-img" src="../img/placeholder.svg" alt="Paquete de 500 Calcetines Multimarca" loading="lazy">
@@ -205,7 +208,10 @@ Ideal para revendedores y negocios que buscan mercancía de alta rotación, exce
     <div class="p">$11,960.00</div>
     <div class="u">$299.00 c/u</div>
   </div>
-  <button class="btn btn-primary js-add-to-cart">Agregar</button>
+  <div class="mobile-buybar-actions">
+    <button type="button" class="btn btn-primary js-buy-now">Comprar</button>
+    <button type="button" class="btn btn-secondary js-add-to-cart">Agregar</button>
+  </div>
 </div>
 
 <script type="application/json" id="gallery-data">{"principal": {"label": "Principal", "items": [{"type": "image", "src": "../img/placeholder.svg"}]}}</script>
@@ -237,6 +243,10 @@ Ideal para revendedores y negocios que buscan mercancía de alta rotación, exce
     <button class="link-btn" id="cart-clear">Vaciar carrito</button>
   </div>
 </aside>
+<a href="#" id="whatsapp-float-btn" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.04 2.67C8.84 2.67 3 8.5 3 15.7c0 2.84.93 5.46 2.5 7.6L4 29.33l6.2-1.63a12.9 12.9 0 0 0 5.84 1.4h.01c7.2 0 13.04-5.83 13.04-13.03 0-3.48-1.36-6.75-3.82-9.2a12.93 12.93 0 0 0-9.23-3.8Zm0 23.4h-.01a10.8 10.8 0 0 1-5.5-1.5l-.4-.24-4.1 1.08 1.1-4-.26-.42a10.78 10.78 0 0 1-1.65-5.74c0-5.98 4.87-10.84 10.85-10.84a10.8 10.8 0 0 1 7.68 3.18 10.78 10.78 0 0 1 3.18 7.67c0 5.98-4.87 10.81-10.85 10.81Zm5.95-8.1c-.33-.16-1.93-.95-2.23-1.06-.3-.11-.51-.16-.73.16-.21.32-.84 1.06-1.03 1.27-.19.22-.38.24-.7.08-.32-.16-1.34-.49-2.55-1.57-.94-.84-1.58-1.87-1.76-2.19-.19-.32-.02-.49.15-.65.16-.16.36-.41.54-.62.18-.21.24-.36.36-.6.12-.24.06-.44-.03-.6-.1-.16-.66-1.6-.91-2.18-.24-.58-.49-.5-.68-.51h-.58c-.19 0-.5.07-.76.36-.27.29-1.03 1-1.03 2.45s1.06 2.84 1.21 3.04c.16.2 2.13 3.25 5.16 4.43 3.03 1.18 3.03.79 3.58.74.54-.05 1.93-.79 2.2-1.55.28-.76.28-1.41.2-1.55-.08-.13-.3-.21-.62-.37Z"/></svg>
+</a>
+
 <script src="../js/config.js"></script>
 <script src="../js/cart.js"></script>
 <script src="../js/product.js"></script></body>

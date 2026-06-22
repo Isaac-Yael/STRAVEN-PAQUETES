@@ -66,7 +66,10 @@
         </div>
       </div>
 
-      <button class="btn btn-primary btn-block js-add-to-cart">Agregar al Carrito</button>
+      <div class="buy-actions">
+        <button type="button" class="btn btn-primary btn-block js-buy-now" id="buy-now-btn">Comprar Ahora</button>
+        <button type="button" class="btn btn-secondary btn-block js-add-to-cart">Agregar al Carrito</button>
+      </div>
       <div class="added-toast" id="added-toast">✓ Paquete agregado a tu pedido</div>
 
       {% if p.extras %}
@@ -117,7 +120,10 @@
     <div class="p">{{ p.precio_total }}</div>
     <div class="u">{{ p.precio_unitario }} c/u</div>
   </div>
-  <button class="btn btn-primary js-add-to-cart">Agregar</button>
+  <div class="mobile-buybar-actions">
+    <button type="button" class="btn btn-primary js-buy-now">Comprar</button>
+    <button type="button" class="btn btn-secondary js-add-to-cart">Agregar</button>
+  </div>
 </div>
 
 <script type="application/json" id="gallery-data">{{ gallery_json|safe }}</script>

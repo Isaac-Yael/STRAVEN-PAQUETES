@@ -261,16 +261,16 @@ def main():
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR), autoescape=True, trim_blocks=True, lstrip_blocks=True)
 
     # ---- index.html (prefix "" : está en la raíz) ----
-    index_categories = [{
-        "slug": c["slug"],
-        "nombre": c["nombre"],
-        "productos": [make_view(p, "") for p in c["productos"]],
-    } for c in categories_raw]
+    # Grilla única (sin separar por categoría); los filtros solo
+    # muestran/ocultan tarjetas individuales vía data-cat en el cliente.
+    index_categories = [{"slug": c["slug"], "nombre": c["nombre"]} for c in categories_raw]
+    index_products = [make_view(p, "") for p in products]
 
     index_tpl = env.get_template("index.html.j2")
     index_html = index_tpl.render(
         asset_prefix="",
         categories=index_categories,
+        products=index_products,
         year=year,
         page_title="STRAVEN — Catálogo Mayorista | Paquetes 100% originales",
     )

@@ -83,7 +83,7 @@
     document.querySelectorAll(".js-qty-inc").forEach((b) => b.addEventListener("click", () => { qty++; renderQty(); }));
     document.querySelectorAll(".js-qty-dec").forEach((b) => b.addEventListener("click", () => { if (qty > 1) qty--; renderQty(); }));
 
-    // ---- Agregar al carrito ----
+    // ---- Agregar al carrito (botón secundario) ----
     const toast = document.getElementById("added-toast");
     document.querySelectorAll(".js-add-to-cart").forEach((btn) => {
       btn.addEventListener("click", () => {
@@ -94,5 +94,9 @@
         }
       });
     });
+
+    // ---- Comprar ahora (botón primario) ----
+    // Intencionalmente sin acción todavía: aquí se integrará el checkout
+    // con PayPal. Por ahora .js-buy-now no tiene listener.
   });
 })();

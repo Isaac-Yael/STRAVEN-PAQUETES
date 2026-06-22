@@ -162,8 +162,18 @@
     document.body.style.overflow = "";
   }
 
+  function setupWhatsappFloat() {
+    const btn = document.getElementById("whatsapp-float-btn");
+    if (!btn) return;
+    const cfg = window.STRAVEN_CONFIG || {};
+    const number = (cfg.whatsappNumber || "").replace(/[^\d]/g, "");
+    const text = encodeURIComponent(cfg.whatsappDefaultMessage || "Hola, me gustaría más información.");
+    btn.href = `https://wa.me/${number}?text=${text}`;
+  }
+
   function initCart() {
     renderCart();
+    setupWhatsappFloat();
     document.getElementById("cart-btn")?.addEventListener("click", openCart);
     document.getElementById("cart-close")?.addEventListener("click", closeCart);
     document.getElementById("cart-overlay")?.addEventListener("click", closeCart);

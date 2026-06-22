@@ -11,19 +11,11 @@
     </div>
   </div>
 
-  {% for cat in categories %}
-  <section class="cat-section" data-cat="{{ cat.slug }}">
-    <div class="cat-heading">
-      <h2>{{ cat.nombre }}</h2>
-      <span class="cat-count">{{ cat.productos|length }} {{ "paquete" if cat.productos|length == 1 else "paquetes" }}</span>
-    </div>
-    <div class="grid">
-      {% for p in cat.productos %}
-      {% include "card.html.j2" %}
-      {% endfor %}
-    </div>
-  </section>
-  {% endfor %}
+  <div class="grid" id="product-grid">
+    {% for p in products %}
+    {% include "card.html.j2" %}
+    {% endfor %}
+  </div>
 
   <div class="no-results" id="no-results" style="display:none;">No hay paquetes en esta categoría por ahora.</div>
 </div>
