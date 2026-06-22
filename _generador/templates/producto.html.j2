@@ -1,5 +1,6 @@
 {% extends "base.html.j2" %}
 {% block meta_desc %}{{ p.meta_desc }}{% endblock %}
+{% block body_class %}has-buybar{% endblock %}
 {% block content %}
 <div class="container product-nav">
   <a href="{{ asset_prefix }}index.html" class="back-link">
@@ -8,15 +9,14 @@
   </a>
 </div>
 
+<!-- ===== HERO: foto principal + caja de compra ===== -->
 <div class="container product-top">
   <div class="product-grid">
 
     <div class="gallery">
-      <div class="gallery-main" id="gallery-main">
+      <button type="button" class="gallery-main js-lightbox-img" data-group="principal">
         <img src="{{ p.principal }}" alt="{{ p.nombre }}">
-      </div>
-      <div class="gallery-tabs" id="gallery-tabs"></div>
-      <div class="thumbs" id="thumbs"></div>
+      </button>
     </div>
 
     <div class="buy-box">
@@ -67,7 +67,7 @@
       </div>
 
       <div class="buy-actions">
-        <button type="button" class="btn btn-primary btn-block js-buy-now" id="buy-now-btn">Comprar Ahora</button>
+        <button type="button" class="btn btn-primary btn-block js-buy-now">Comprar Ahora</button>
         <button type="button" class="btn btn-secondary btn-block js-add-to-cart">Agregar al Carrito</button>
       </div>
       <div class="added-toast" id="added-toast">✓ Paquete agregado a tu pedido</div>
@@ -85,9 +85,66 @@
         </ul>
       </div>
       {% endif %}
+
+      {% if p.gallery_sections %}
+      <div class="scroll-hint">
+        <span>Desliza para ver todos los detalles del paquete</span>
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+      {% endif %}
     </div>
   </div>
+</div>
 
+<!-- ===== SECCIONES NARRATIVAS: aparecen al hacer scroll ===== -->
+{% for sec in p.gallery_sections %}
+<div class="story-section">
+  <div class="container">
+    <div class="story-head">
+      <div class="story-eyebrow">{{ sec.eyebrow }}</div>
+      <h2 class="story-title">{{ sec.title }}</h2>
+      <p class="story-sub">{{ sec.subtitle }}</p>
+    </div>
+
+    {% if sec.key == "video" %}
+    <div class="video-frame">
+      <video controls playsinline {% if sec.fotos[0].poster %}poster="{{ sec.fotos[0].poster }}"{% endif %}>
+        <source src="{{ sec.fotos[0].src }}">
+      </video>
+    </div>
+    {% else %}
+    <div class="photo-grid{{ ' photo-grid--large' if sec.key == 'grupales' else '' }}">
+      {% for it in sec.fotos %}
+      <button type="button" class="photo-tile js-lightbox-img" data-group="{{ sec.key }}">
+        <img src="{{ it.src }}" alt="{{ p.nombre }} — {{ sec.title }}" loading="lazy">
+      </button>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if loop.index == 2 or loop.last %}
+<div class="story-section cta-banner-section">
+  <div class="container">
+    <div class="cta-banner">
+      {% if loop.last %}
+      <div class="cta-banner-title">¿Ya viste suficiente? Asegura tu paquete</div>
+      <p class="cta-banner-sub">Inventario limitado · Mercancía 100% original lista para revender.</p>
+      {% else %}
+      <div class="cta-banner-title">No dejes que se agote tu inventario</div>
+      <p class="cta-banner-sub">Paquetes mayoristas con disponibilidad limitada.</p>
+      {% endif %}
+      <div class="cta-banner-price">{{ p.precio_total }}</div>
+      <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora</button>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+<!-- ===== ESPECIFICACIONES + DESCRIPCIÓN ===== -->
+<div class="container">
   <div class="detail-lower">
     <div>
       <h2 class="block-title">Descripción</h2>
@@ -102,7 +159,24 @@
       </table>
     </div>
   </div>
+</div>
 
+<!-- ===== CTA FINAL ===== -->
+<div class="final-cta">
+  <div class="container">
+    <div class="cta-banner final-cta-inner">
+      <div class="cta-banner-title">¿Listo para hacer crecer tu inventario?</div>
+      <p class="cta-banner-sub">Paquete completo de {{ p.pzas }} piezas, 100% original · Atención directa por WhatsApp.</p>
+      <div class="cta-banner-price">{{ p.precio_total }}</div>
+      <div class="final-cta-actions">
+        <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora</button>
+        <button type="button" class="btn btn-secondary js-add-to-cart">Agregar al Carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
   {% if others %}
   <div class="related">
     <div class="cat-heading"><h2>También te puede interesar</h2></div>
@@ -116,17 +190,16 @@
 </div>
 
 <div class="mobile-buybar">
-  <div class="mobile-buybar-price">
-    <div class="p">{{ p.precio_total }}</div>
-    <div class="u">{{ p.precio_unitario }} c/u</div>
+  <div class="mobile-buybar-row">
+    <div class="mobile-buybar-price">
+      <div class="p">{{ p.precio_total }}</div>
+      <div class="u">{{ p.precio_unitario }} c/u</div>
+    </div>
+    <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora</button>
   </div>
-  <div class="mobile-buybar-actions">
-    <button type="button" class="btn btn-primary js-buy-now">Comprar</button>
-    <button type="button" class="btn btn-secondary js-add-to-cart">Agregar</button>
-  </div>
+  <button type="button" class="btn btn-secondary btn-block js-add-to-cart">Agregar al Carrito</button>
 </div>
 
-<script type="application/json" id="gallery-data">{{ gallery_json|safe }}</script>
 <script type="application/json" id="product-data">{{ product_json|safe }}</script>
 {% endblock %}
 {% block extra_scripts %}<script src="{{ asset_prefix }}js/product.js"></script>{% endblock %}

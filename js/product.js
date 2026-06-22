@@ -1,78 +1,12 @@
 /* =========================================================
-   PÁGINA DE PRODUCTO — galería con tabs + agregar al carrito
+   PÁGINA DE PRODUCTO — landing page con scroll
+   Cantidad, agregar al carrito y lightbox de fotos.
    ========================================================= */
 (function () {
   document.addEventListener("DOMContentLoaded", () => {
-    const galleryDataEl = document.getElementById("gallery-data");
     const productDataEl = document.getElementById("product-data");
-    if (!galleryDataEl || !productDataEl) return;
-
-    const gallery = JSON.parse(galleryDataEl.textContent);
+    if (!productDataEl) return;
     const product = JSON.parse(productDataEl.textContent);
-
-    const mainWrap = document.getElementById("gallery-main");
-    const tabsWrap = document.getElementById("gallery-tabs");
-    const thumbsWrap = document.getElementById("thumbs");
-
-    const tabKeys = Object.keys(gallery).filter((k) => gallery[k].items && gallery[k].items.length > 0);
-    let activeTab = tabKeys[0];
-
-    function setMain(item) {
-      if (!item) return;
-      if (item.type === "video") {
-        mainWrap.innerHTML = `<video controls playsinline ${item.poster ? `poster="${item.poster}"` : ""}><source src="${item.src}"></video>`;
-      } else {
-        mainWrap.innerHTML = `<img src="${item.src}" alt="${product.nombre}">`;
-      }
-    }
-
-    function renderThumbs() {
-      const items = gallery[activeTab].items;
-      thumbsWrap.innerHTML = "";
-      if (items.length <= 1) {
-        thumbsWrap.style.display = "none";
-        return;
-      }
-      thumbsWrap.style.display = "flex";
-      items.forEach((item, idx) => {
-        const btn = document.createElement("button");
-        btn.className = "thumb" + (idx === 0 ? " active" : "") + (item.type === "video" ? " video-thumb" : "");
-        if (item.type === "video") {
-          btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
-        } else {
-          btn.innerHTML = `<img src="${item.src}" alt="">`;
-        }
-        btn.addEventListener("click", () => {
-          thumbsWrap.querySelectorAll(".thumb").forEach((t) => t.classList.remove("active"));
-          btn.classList.add("active");
-          setMain(item);
-        });
-        thumbsWrap.appendChild(btn);
-      });
-    }
-
-    function renderTabs() {
-      tabsWrap.innerHTML = "";
-      tabKeys.forEach((key) => {
-        const btn = document.createElement("button");
-        btn.className = "gtab" + (key === activeTab ? " active" : "");
-        btn.textContent = gallery[key].label;
-        btn.addEventListener("click", () => {
-          activeTab = key;
-          tabsWrap.querySelectorAll(".gtab").forEach((t) => t.classList.remove("active"));
-          btn.classList.add("active");
-          setMain(gallery[key].items[0]);
-          renderThumbs();
-        });
-        tabsWrap.appendChild(btn);
-      });
-    }
-
-    if (tabKeys.length) {
-      renderTabs();
-      setMain(gallery[activeTab].items[0]);
-      renderThumbs();
-    }
 
     // ---- Cantidad ----
     let qty = 1;
@@ -97,6 +31,75 @@
 
     // ---- Comprar ahora (botón primario) ----
     // Intencionalmente sin acción todavía: aquí se integrará el checkout
-    // con PayPal. Por ahora .js-buy-now no tiene listener.
+    // con PayPal. Por ahora .js-buy-now no tiene listener. Aparece repetido
+    // en el hero, en los banners intermedios, en el CTA final y en la barra
+    // fija de mobile — todos comparten esta misma clase.
+
+    // ---- Lightbox de fotos ----
+    // Cada sección (principal / detalles / piezas individuales / foto grupal)
+    // es su propio "grupo": el visor solo navega entre fotos de la misma
+    // sección, para no perder el contexto narrativo de la página.
+    const triggers = Array.from(document.querySelectorAll(".js-lightbox-img"));
+    if (!triggers.length) return;
+
+    const groups = {};
+    triggers.forEach((btn) => {
+      const group = btn.dataset.group || "default";
+      (groups[group] = groups[group] || []).push(btn);
+    });
+
+    const overlay = document.createElement("div");
+    overlay.className = "lightbox-overlay";
+    overlay.innerHTML =
+      '<button type="button" class="lightbox-close" aria-label="Cerrar">&times;</button>' +
+      '<button type="button" class="lightbox-nav lightbox-prev" aria-label="Anterior">&#8249;</button>' +
+      '<div class="lightbox-img-wrap"><img alt=""></div>' +
+      '<button type="button" class="lightbox-nav lightbox-next" aria-label="Siguiente">&#8250;</button>';
+    document.body.appendChild(overlay);
+
+    const imgEl = overlay.querySelector("img");
+    const prevBtn = overlay.querySelector(".lightbox-prev");
+    const nextBtn = overlay.querySelector(".lightbox-next");
+
+    let currentGroup = null;
+    let currentIndex = 0;
+
+    function show(group, index) {
+      const list = groups[group];
+      if (!list || !list.length) return;
+      currentGroup = group;
+      currentIndex = (index + list.length) % list.length;
+      const sourceImg = list[currentIndex].querySelector("img");
+      imgEl.src = sourceImg.src;
+      imgEl.alt = sourceImg.alt || "";
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      const multi = list.length > 1;
+      prevBtn.style.display = multi ? "flex" : "none";
+      nextBtn.style.display = multi ? "flex" : "none";
+    }
+
+    function close() {
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    triggers.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const group = btn.dataset.group || "default";
+        show(group, groups[group].indexOf(btn));
+      });
+    });
+
+    overlay.querySelector(".lightbox-close").addEventListener("click", close);
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+    prevBtn.addEventListener("click", () => show(currentGroup, currentIndex - 1));
+    nextBtn.addEventListener("click", () => show(currentGroup, currentIndex + 1));
+    document.addEventListener("keydown", (e) => {
+      if (!overlay.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") show(currentGroup, currentIndex - 1);
+      if (e.key === "ArrowRight") show(currentGroup, currentIndex + 1);
+    });
   });
 })();

@@ -8,7 +8,7 @@
 <link rel="icon" type="image/webp" href="../img/logo_ch.webp">
 <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body>
+<body class="has-buybar">
 <div class="bg-glow"></div>
 <header class="site-header">
   <div class="header-inner container">
@@ -39,15 +39,14 @@
   </a>
 </div>
 
+<!-- ===== HERO: foto principal + caja de compra ===== -->
 <div class="container product-top">
   <div class="product-grid">
 
     <div class="gallery">
-      <div class="gallery-main" id="gallery-main">
+      <button type="button" class="gallery-main js-lightbox-img" data-group="principal">
         <img src="../img/placeholder.svg" alt="Paquete de 40 Gorras PUMA">
-      </div>
-      <div class="gallery-tabs" id="gallery-tabs"></div>
-      <div class="thumbs" id="thumbs"></div>
+      </button>
     </div>
 
     <div class="buy-box">
@@ -93,7 +92,7 @@
       </div>
 
       <div class="buy-actions">
-        <button type="button" class="btn btn-primary btn-block js-buy-now" id="buy-now-btn">Comprar Ahora</button>
+        <button type="button" class="btn btn-primary btn-block js-buy-now">Comprar Ahora</button>
         <button type="button" class="btn btn-secondary btn-block js-add-to-cart">Agregar al Carrito</button>
       </div>
       <div class="added-toast" id="added-toast">✓ Paquete agregado a tu pedido</div>
@@ -107,9 +106,15 @@
           </li>
         </ul>
       </div>
+
     </div>
   </div>
+</div>
 
+<!-- ===== SECCIONES NARRATIVAS: aparecen al hacer scroll ===== -->
+
+<!-- ===== ESPECIFICACIONES + DESCRIPCIÓN ===== -->
+<div class="container">
   <div class="detail-lower">
     <div>
       <h2 class="block-title">Descripción</h2>
@@ -133,7 +138,24 @@ Ideal para revendedores y negocios que buscan mercancía de alta rotación, exce
       </table>
     </div>
   </div>
+</div>
 
+<!-- ===== CTA FINAL ===== -->
+<div class="final-cta">
+  <div class="container">
+    <div class="cta-banner final-cta-inner">
+      <div class="cta-banner-title">¿Listo para hacer crecer tu inventario?</div>
+      <p class="cta-banner-sub">Paquete completo de 40 piezas, 100% original · Atención directa por WhatsApp.</p>
+      <div class="cta-banner-price">$8,800.00</div>
+      <div class="final-cta-actions">
+        <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora</button>
+        <button type="button" class="btn btn-secondary js-add-to-cart">Agregar al Carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
   <div class="related">
     <div class="cat-heading"><h2>También te puede interesar</h2></div>
     <div class="grid">
@@ -204,17 +226,16 @@ Ideal para revendedores y negocios que buscan mercancía de alta rotación, exce
 </div>
 
 <div class="mobile-buybar">
-  <div class="mobile-buybar-price">
-    <div class="p">$8,800.00</div>
-    <div class="u">$220.00 c/u</div>
+  <div class="mobile-buybar-row">
+    <div class="mobile-buybar-price">
+      <div class="p">$8,800.00</div>
+      <div class="u">$220.00 c/u</div>
+    </div>
+    <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora</button>
   </div>
-  <div class="mobile-buybar-actions">
-    <button type="button" class="btn btn-primary js-buy-now">Comprar</button>
-    <button type="button" class="btn btn-secondary js-add-to-cart">Agregar</button>
-  </div>
+  <button type="button" class="btn btn-secondary btn-block js-add-to-cart">Agregar al Carrito</button>
 </div>
 
-<script type="application/json" id="gallery-data">{"principal": {"label": "Principal", "items": [{"type": "image", "src": "../img/placeholder.svg"}]}}</script>
 <script type="application/json" id="product-data">{"slug": "p40gp", "nombre": "Paquete de 40 Gorras PUMA", "imagen": "../img/placeholder.svg", "precio": 8800.0, "precioStr": "$8,800.00", "categoria": "Gorras", "pzas": "40"}</script>
 </main>
 

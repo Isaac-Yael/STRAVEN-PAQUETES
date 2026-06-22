@@ -8,7 +8,7 @@
 <link rel="icon" type="image/webp" href="{{ asset_prefix }}img/logo_ch.webp">
 <link rel="stylesheet" href="{{ asset_prefix }}css/styles.css">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
 <div class="bg-glow"></div>
 {% include "header.html.j2" %}
 

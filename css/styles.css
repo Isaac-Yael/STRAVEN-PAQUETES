@@ -29,7 +29,7 @@
 }
 
 *{ box-sizing: border-box; }
-html, body{ margin:0; padding:0; }
+html, body{ margin:0; padding:0; max-width:100%; overflow-x: hidden; }
 body{
   background: var(--bg);
   color: var(--text);
@@ -82,6 +82,9 @@ h1,h2,h3,h4,p{ margin:0; }
   letter-spacing: .14em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+@media (max-width: 600px){
+  .header-tag{ display:none; }
 }
 .back-link{
   display:flex; align-items:center; gap:8px;
@@ -396,42 +399,168 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 @media (max-width: 900px){ .product-grid{ grid-template-columns: 1fr; gap:26px; } }
 
-/* Galería */
+/* Galería — foto principal del hero (clic abre el lightbox) */
 .gallery-main{
   position:relative;
+  width:100%;
   background:#fff;
+  border:none; padding:0; margin:0;
   border-radius: var(--radius-lg);
   overflow:hidden;
   aspect-ratio: 1/1;
   display:flex; align-items:center; justify-content:center;
+  cursor: zoom-in;
 }
 .gallery-main img, .gallery-main video{
   width:100%; height:100%; object-fit:contain;
 }
-.gallery-tabs{
-  display:flex; gap:8px; margin-top:14px; overflow-x:auto; scrollbar-width:none;
-}
-.gallery-tabs::-webkit-scrollbar{ display:none; }
-.gtab{
-  flex:none;
-  background: var(--bg-elev-2); border:1px solid var(--border); color: var(--text-dim);
-  font-size:12.5px; font-weight:700;
-  padding: 9px 16px; border-radius: var(--radius-pill);
-}
-.gtab.active{ background: var(--green); border-color:var(--green); color:#0a0a0a; }
 
-.thumbs{
-  display:flex; gap:10px; margin-top:12px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none;
+/* ===================================================
+   LANDING PAGE DE PRODUCTO — secciones que aparecen al scroll
+   =================================================== */
+.scroll-hint{
+  margin-top: 22px;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  text-align:center;
+  color: var(--text-faint);
+  font-size: 12.5px; font-weight:600;
 }
-.thumbs::-webkit-scrollbar{ display:none; }
-.thumb{
-  flex:none; width:64px; height:64px; border-radius: var(--radius-sm);
-  background:#fff; border:2px solid transparent; overflow:hidden; padding:0;
+.scroll-hint svg{ color: var(--green); animation: scroll-bounce 1.6s infinite; }
+@keyframes scroll-bounce{
+  0%, 100%{ transform: translateY(0); }
+  50%{ transform: translateY(6px); }
 }
-.thumb img{ width:100%; height:100%; object-fit:cover; }
-.thumb.active{ border-color: var(--green); }
-.thumb.video-thumb{ display:flex; align-items:center; justify-content:center; background:#101010; }
-.thumb.video-thumb svg{ width:22px; height:22px; color: var(--green); }
+
+.story-section{
+  padding: 56px 0;
+  border-top: 1px solid var(--border-soft);
+}
+.story-head{
+  max-width: 640px;
+  margin: 0 auto 28px;
+  text-align:center;
+}
+.story-eyebrow{
+  color: var(--green); font-size:12px; font-weight:800;
+  letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px;
+}
+.story-title{ font-size: clamp(22px, 3.2vw, 30px); font-weight:800; line-height:1.25; margin-bottom:10px; }
+.story-sub{ color: var(--text-dim); font-size:15px; }
+
+.photo-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+.photo-grid--large{
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.photo-tile{
+  position:relative;
+  aspect-ratio: 1/1;
+  border:none; padding:0; margin:0;
+  border-radius: var(--radius-md);
+  overflow:hidden;
+  background:#fff;
+  cursor: zoom-in;
+}
+.photo-grid--large .photo-tile{ aspect-ratio: 4/3; }
+.photo-tile img{
+  width:100%; height:100%; object-fit:cover;
+  transition: transform .25s ease;
+}
+.photo-tile:hover img{ transform: scale(1.06); }
+
+.video-frame{
+  max-width: 760px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow:hidden;
+  background:#000;
+}
+.video-frame video{
+  width:100%; display:block;
+  aspect-ratio: 16/9;
+  object-fit: contain;
+  background:#000;
+}
+
+/* Banners de CTA intermedios + CTA final (comparten estilo .cta-banner) */
+.cta-banner{
+  max-width: 720px;
+  margin: 0 auto;
+  text-align:center;
+  background: linear-gradient(135deg, var(--bg-elev), var(--bg-elev-2));
+  border: 1px solid rgba(166,255,26,.25);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+}
+.cta-banner-title{ font-size: clamp(20px, 3vw, 26px); font-weight:800; margin-bottom:8px; }
+.cta-banner-sub{ color: var(--text-dim); font-size:14.5px; margin-bottom:18px; }
+.cta-banner-price{ font-size:30px; font-weight:800; color: var(--green); margin-bottom:18px; letter-spacing:-.01em; }
+.cta-banner .btn{ min-width:220px; }
+
+.final-cta{
+  margin-top: 10px;
+  padding: 60px 0;
+  background: var(--bg-soft);
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+.final-cta-actions{
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+}
+.final-cta-actions .btn{ min-width:200px; }
+
+@media (max-width: 480px){
+  .cta-banner{ padding: 28px 18px; }
+  .cta-banner .btn{ min-width:0; width:100%; }
+  .final-cta-actions{ flex-direction:column; }
+  .final-cta-actions .btn{ width:100%; min-width:0; }
+}
+
+/* Lightbox de fotos */
+.lightbox-overlay{
+  display:none;
+  position: fixed; inset:0; z-index: 95;
+  background: rgba(5,5,5,.94);
+  align-items:center; justify-content:center;
+  padding: 60px 16px;
+}
+.lightbox-overlay.open{ display:flex; }
+.lightbox-img-wrap{
+  max-width:100%; max-height:100%;
+  display:flex; align-items:center; justify-content:center;
+}
+.lightbox-overlay img{
+  max-width:100%; max-height:78vh;
+  object-fit:contain;
+  border-radius: var(--radius-md);
+}
+.lightbox-close{
+  position:absolute; top:16px; right:16px;
+  width:40px; height:40px; border-radius:50%;
+  background: var(--bg-elev-2); border:1px solid var(--border);
+  color: var(--text); font-size:22px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+}
+.lightbox-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:44px; height:44px; border-radius:50%;
+  background: rgba(255,255,255,.08); border:1px solid var(--border);
+  color: var(--text); font-size:26px; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+}
+.lightbox-prev{ left:10px; }
+.lightbox-next{ right:10px; }
+@media (max-width: 600px){
+  .lightbox-overlay{ padding: 50px 8px; }
+  .lightbox-nav{ width:34px; height:34px; font-size:20px; }
+  .lightbox-prev{ left:4px; }
+  .lightbox-next{ right:4px; }
+  .lightbox-close{ width:34px; height:34px; top:10px; right:10px; }
+}
 
 /* Buy box */
 .buy-box{
@@ -518,25 +647,28 @@ h1,h2,h3,h4,p{ margin:0; }
 /* Relacionados */
 .related{ margin-top: 56px; }
 
-/* Sticky mobile buy bar */
+/* Sticky mobile buy bar — dos filas para que nunca se amontonen los botones */
 .mobile-buybar{
   display:none;
+  flex-direction: column; gap: 8px;
   position: fixed; left:0; right:0; bottom:0; z-index: 60;
   background: rgba(14,14,14,.95);
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
-  padding: 12px 16px;
-  align-items:center; gap:12px;
+  padding: 10px 16px 12px;
+}
+.mobile-buybar-row{
+  display:flex; align-items:center; gap:12px;
 }
 .mobile-buybar-price{ flex:1; min-width:0; }
 .mobile-buybar-price .p{ font-size:18px; font-weight:800; color: var(--green); }
 .mobile-buybar-price .u{ font-size:11.5px; color: var(--text-faint); }
-.mobile-buybar-actions{ display:flex; gap:8px; flex:none; }
-.mobile-buybar-actions .btn{ padding: 11px 16px; font-size:13px; white-space:nowrap; }
+.mobile-buybar-row .btn{ flex:none; padding: 12px 22px; font-size:14px; white-space:nowrap; }
+.mobile-buybar .btn-secondary{ padding: 10px 16px; font-size:13px; }
 @media (max-width: 900px){
   .mobile-buybar{ display:flex; }
   .buy-box{ position:static; }
-  body{ padding-bottom: 84px; }
+  body.has-buybar{ padding-bottom: 138px; }
 }
 
 /* ---------- Botón flotante de WhatsApp ---------- */
@@ -551,6 +683,7 @@ h1,h2,h3,h4,p{ margin:0; }
 .whatsapp-float:hover{ transform: scale(1.07); }
 @media (max-width: 900px){
   .whatsapp-float{ bottom: 96px; }
+  body.has-buybar .whatsapp-float{ bottom: 150px; }
 }
 
 /* Breadcrumb / volver */

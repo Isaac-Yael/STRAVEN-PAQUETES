@@ -37,6 +37,33 @@ PLACEHOLDER_IMG = "img/placeholder.svg"
 IMG_EXTS = (".jpg", ".jpeg", ".png", ".webp")
 VIDEO_EXTS = (".mp4", ".mov", ".webm")
 
+# Orden y copy persuasivo de las secciones de "landing page" en la página
+# de producto. Cada tupla: (eyebrow, título, subtítulo). Solo se renderiza
+# la sección si el paquete tiene fotos/video reales en esa carpeta.
+SECTION_ORDER_KEYS = ["detalles", "individuales", "video", "grupales"]
+SECTION_META = {
+    "detalles": (
+        "CALIDAD VERIFICABLE",
+        "Cada detalle, a la vista",
+        "Acércate y revisa el material, las costuras y el acabado real de las piezas — sin filtros.",
+    ),
+    "individuales": (
+        "CONTENIDO DEL PAQUETE",
+        "Esto es exactamente lo que recibes",
+        "Cada pieza fotografiada por separado, para que sepas con certeza qué estás comprando.",
+    ),
+    "video": (
+        "PRUEBA EN VIDEO",
+        "Míralo en movimiento",
+        "Video real del paquete completo, grabado tal como se entrega.",
+    ),
+    "grupales": (
+        "VOLUMEN REAL",
+        "Así de grande es tu inventario",
+        "El paquete completo, listo para empacar y revender.",
+    ),
+}
+
 
 # ---------------------------------------------------------------------------
 # Utilidades
@@ -155,7 +182,10 @@ def load_products():
             if grupales:
                 gallery["grupales"] = {"label": "Foto grupal", "items": [{"type": "image", "src": u} for u in grupales]}
             if videos:
-                gallery["video"] = {"label": "Video", "items": [{"type": "video", "src": u} for u in videos]}
+                gallery["video"] = {
+                    "label": "Video",
+                    "items": [{"type": "video", "src": u, "poster": principal_url} for u in videos],
+                }
             if not gallery:
                 gallery["principal"] = {"label": "Principal", "items": [{"type": "image", "src": PLACEHOLDER_IMG}]}
 
@@ -233,6 +263,13 @@ def prefix_paths(value, prefix):
     return value
 
 
+def _prefix_item(it, prefix):
+    out = {"type": it["type"], "src": prefix + it["src"]}
+    if it.get("poster"):
+        out["poster"] = prefix + it["poster"]
+    return out
+
+
 def make_view(p, prefix):
     """Devuelve una copia del producto con TODAS las rutas de imagen/video
     ya resueltas con el prefijo relativo correcto para la página donde se use."""
@@ -242,10 +279,25 @@ def make_view(p, prefix):
     v["gallery"] = {
         key: {
             "label": tab["label"],
-            "items": [{"type": it["type"], "src": prefix + it["src"]} for it in tab["items"]],
+            "items": [_prefix_item(it, prefix) for it in tab["items"]],
         }
         for key, tab in p["gallery"].items()
     }
+    # Secciones de "landing page" en el orden narrativo definido arriba;
+    # solo se incluyen las que el paquete realmente tiene.
+    # Nota: la clave se llama "fotos" (no "items") a propósito — en Jinja2,
+    # "items" choca con el método dict.items() y rompe el acceso sec.items.
+    v["gallery_sections"] = [
+        {
+            "key": key,
+            "eyebrow": SECTION_META[key][0],
+            "title": SECTION_META[key][1],
+            "subtitle": SECTION_META[key][2],
+            "fotos": v["gallery"][key]["items"],
+        }
+        for key in SECTION_ORDER_KEYS
+        if key in v["gallery"]
+    ]
     v["url"] = f"{prefix}productos/{p['slug']}.html"
     return v
 
@@ -285,7 +337,6 @@ def main():
         view = make_view(p, "../")
         others = [make_view(o, "../") for o in products if o["slug"] != p["slug"]][:4]
 
-        gallery_json = json.dumps(view["gallery"], ensure_ascii=False)
         product_json = json.dumps({
             "slug": p["slug"],
             "nombre": p["nombre"],
@@ -300,7 +351,6 @@ def main():
             asset_prefix="../",
             p=view,
             others=others,
-            gallery_json=gallery_json,
             product_json=product_json,
             year=year,
             page_title=f"{p['nombre']} — STRAVEN Mayoreo",
