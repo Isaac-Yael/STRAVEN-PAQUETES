@@ -26,7 +26,7 @@
       {% endif %}
 
       <div class="buy-price-block">
-        <span class="buy-price">{{ p.precio_total }}</span>
+        <span class="buy-price js-count-price" data-count="load" data-final="{{ p.precio_total_num }}">{{ p.precio_total }}</span>
         <span class="buy-price-label">precio del paquete completo</span>
       </div>
       <div class="buy-unit">{{ p.precio_unitario }} c/u · {{ p.pzas }} piezas</div>
@@ -88,7 +88,28 @@
   </div>
 </div>
 
+{% macro brands_mini_section() -%}
+<!-- ===== MINI-SECCIÓN: marcas premium ===== -->
+<div class="story-section brands-mini-section">
+  <div class="container">
+    <div class="story-head reveal">
+      <div class="story-eyebrow">CALIDAD GARANTIZADA</div>
+      <h2 class="story-title">Manejamos marcas premium</h2>
+      <p class="story-sub">Inventario 100% original, directo de las marcas más reconocidas del mercado.</p>
+    </div>
+    <div class="brands-mini-row">
+      {% for logo in p.logos %}
+      <div class="brands-mini-logo reveal" style="transition-delay:{{ (loop.index0 % 6) * 70 }}ms">
+        <img src="{{ logo }}" alt="Marca premium incluida en el paquete">
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{%- endmacro %}
+
 <!-- ===== SECCIONES NARRATIVAS: aparecen al hacer scroll ===== -->
+{% set tiene_video = p.gallery_sections | selectattr("key", "equalto", "video") | list | length > 0 %}
 {% for sec in p.gallery_sections %}
 {% if sec.key == "individuales" %}
 <!-- ===== MINI-SECCIÓN: envío gratis (antes de "fotografías individuales") ===== -->
@@ -146,6 +167,10 @@
   </div>
 </div>
 
+{% if sec.key == "video" and p.logos %}
+{{ brands_mini_section() }}
+{% endif %}
+
 {% if loop.index == 2 or loop.last %}
 <div class="story-section cta-banner-section">
   <div class="container">
@@ -157,13 +182,17 @@
       <div class="cta-banner-title">No dejes que se agote tu inventario</div>
       <p class="cta-banner-sub">Paquetes mayoristas con disponibilidad limitada.</p>
       {% endif %}
-      <div class="cta-banner-price">{{ p.precio_total }}</div>
+      <div class="cta-banner-price js-count-price" data-count="scroll" data-final="{{ p.precio_total_num }}">{{ p.precio_total }}</div>
       <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora 🔥</button>
     </div>
   </div>
 </div>
 {% endif %}
 {% endfor %}
+
+{% if not tiene_video and p.logos %}
+{{ brands_mini_section() }}
+{% endif %}
 
 {% macro spec_icon(key) -%}
 {% if key == "piezas" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
@@ -218,7 +247,7 @@
     <div class="cta-banner final-cta-inner">
       <div class="cta-banner-title">¿Listo para hacer crecer tu inventario?</div>
       <p class="cta-banner-sub">Paquete completo de {{ p.pzas }} piezas, 100% original · Atención directa por WhatsApp.</p>
-      <div class="cta-banner-price">{{ p.precio_total }}</div>
+      <div class="cta-banner-price js-count-price" data-count="scroll" data-final="{{ p.precio_total_num }}">{{ p.precio_total }}</div>
       <div class="final-cta-actions">
         <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora 🔥</button>
         <button type="button" class="btn btn-secondary js-add-to-cart">Agregar al Carrito</button>
@@ -230,7 +259,7 @@
 <div class="mobile-buybar">
   <div class="mobile-buybar-row">
     <div class="mobile-buybar-price">
-      <div class="p">{{ p.precio_total }}</div>
+      <div class="p js-count-price" data-count="load" data-final="{{ p.precio_total_num }}">{{ p.precio_total }}</div>
       <div class="u">{{ p.precio_unitario }} c/u</div>
     </div>
     <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora 🔥</button>

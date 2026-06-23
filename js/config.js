@@ -9,7 +9,10 @@ window.STRAVEN_CONFIG = {
   whatsappNumber: "525538900271",
 
   // Mensaje por defecto del botón flotante de WhatsApp (no del carrito).
-  whatsappDefaultMessage: "Hola STRAVEN, me gustaría más información sobre sus paquetes al mayoreo.",
+  // Se usa cuando no hay un paquete específico en pantalla (ej. catálogo);
+  // en la página de un producto, cart.js lo sobrescribe con un mensaje que
+  // menciona ese paquete en particular.
+  whatsappDefaultMessage: "Hola STRAVEN, estoy interesado en sus paquetes al mayoreo y quisiera más información, por favor.",
 
   businessName: "STRAVEN",
   currency: "MXN",

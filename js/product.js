@@ -35,6 +35,56 @@
     // en el hero, en los banners intermedios, en el CTA final y en la barra
     // fija de mobile — todos comparten esta misma clase.
 
+    // ---- Animación de conteo en los precios ----
+    // El precio del hero (y la barra fija de mobile) cuentan desde 0 apenas
+    // carga la página; el resto de precios (banners intermedios y CTA final)
+    // cuentan la primera vez que entran en el viewport al hacer scroll.
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function formatPrice(n) {
+      return window.StravenCart && window.StravenCart.money ? window.StravenCart.money(n) : "$" + Number(n).toFixed(2);
+    }
+    function animateCount(el) {
+      const final = parseFloat(el.dataset.final);
+      if (isNaN(final)) return;
+      if (reduceMotion) {
+        el.textContent = formatPrice(final);
+        return;
+      }
+      const duration = 1400;
+      const start = performance.now();
+      function tick(now) {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = formatPrice(final * eased);
+        if (t < 1) requestAnimationFrame(tick);
+        else el.textContent = formatPrice(final);
+      }
+      requestAnimationFrame(tick);
+    }
+    const countEls = document.querySelectorAll(".js-count-price");
+    countEls.forEach((el) => {
+      if (el.dataset.count === "load") animateCount(el);
+    });
+    const scrollCountEls = Array.from(countEls).filter((el) => el.dataset.count !== "load");
+    if (scrollCountEls.length) {
+      if ("IntersectionObserver" in window) {
+        const countIO = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                animateCount(entry.target);
+                countIO.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.4 }
+        );
+        scrollCountEls.forEach((el) => countIO.observe(el));
+      } else {
+        scrollCountEls.forEach((el) => animateCount(el));
+      }
+    }
+
     // ---- Animación de aparición al hacer scroll ----
     // Textos (story-head) y fotos/video (photo-tile, video-frame) entran
     // con un fade + slide sutil la primera vez que cruzan el viewport.
