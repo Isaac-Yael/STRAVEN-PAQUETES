@@ -100,22 +100,22 @@
 {% for sec in p.gallery_sections %}
 <div class="story-section">
   <div class="container">
-    <div class="story-head">
+    <div class="story-head reveal">
       <div class="story-eyebrow">{{ sec.eyebrow }}</div>
       <h2 class="story-title">{{ sec.title }}</h2>
       <p class="story-sub">{{ sec.subtitle }}</p>
     </div>
 
     {% if sec.key == "video" %}
-    <div class="video-frame">
+    <div class="video-frame reveal">
       <video controls playsinline {% if sec.fotos[0].poster %}poster="{{ sec.fotos[0].poster }}"{% endif %}>
         <source src="{{ sec.fotos[0].src }}">
       </video>
     </div>
     {% else %}
-    <div class="photo-grid{{ ' photo-grid--large' if sec.key == 'grupales' else '' }}">
+    <div class="photo-grid{{ ' photo-grid--large' if sec.key == 'grupales' else '' }}{{ ' photo-grid--scroll' if sec.key == 'individuales' else '' }}">
       {% for it in sec.fotos %}
-      <button type="button" class="photo-tile js-lightbox-img" data-group="{{ sec.key }}">
+      <button type="button" class="photo-tile js-lightbox-img reveal" data-group="{{ sec.key }}" style="transition-delay:{{ (loop.index0 % 6) * 70 }}ms">
         <img src="{{ it.src }}" alt="{{ p.nombre }} — {{ sec.title }}" loading="lazy">
       </button>
       {% endfor %}
@@ -174,19 +174,6 @@
       </div>
     </div>
   </div>
-</div>
-
-<div class="container">
-  {% if others %}
-  <div class="related">
-    <div class="cat-heading"><h2>También te puede interesar</h2></div>
-    <div class="grid">
-      {% for p in others %}
-      {% include "card.html.j2" %}
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
 </div>
 
 <div class="mobile-buybar">

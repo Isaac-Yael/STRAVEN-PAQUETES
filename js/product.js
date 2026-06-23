@@ -35,6 +35,29 @@
     // en el hero, en los banners intermedios, en el CTA final y en la barra
     // fija de mobile — todos comparten esta misma clase.
 
+    // ---- Animación de aparición al hacer scroll ----
+    // Textos (story-head) y fotos/video (photo-tile, video-frame) entran
+    // con un fade + slide sutil la primera vez que cruzan el viewport.
+    const revealEls = document.querySelectorAll(".reveal");
+    if (revealEls.length) {
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+        );
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add("is-visible"));
+      }
+    }
+
     // ---- Lightbox de fotos ----
     // Cada sección (principal / detalles / piezas individuales / foto grupal)
     // es su propio "grupo": el visor solo navega entre fotos de la misma

@@ -440,6 +440,21 @@ h1,h2,h3,h4,p{ margin:0; }
   margin: 0 auto 28px;
   text-align:center;
 }
+
+/* Animación de aparición al hacer scroll (textos y fotos) */
+.reveal{
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible{
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce){
+  .reveal{ transition:none; opacity:1; transform:none; }
+}
 .story-eyebrow{
   color: var(--green); font-size:12px; font-weight:800;
   letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px;
@@ -451,10 +466,14 @@ h1,h2,h3,h4,p{ margin:0; }
   display:grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 12px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 .photo-grid--large{
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 .photo-tile{
   position:relative;
@@ -471,6 +490,32 @@ h1,h2,h3,h4,p{ margin:0; }
   transition: transform .25s ease;
 }
 .photo-tile:hover img{ transform: scale(1.06); }
+
+/* Piezas individuales en mobile: una sola fila que se sale del
+   contenedor y se recorre con scroll horizontal (estilo "carrusel"). */
+@media (max-width: 900px){
+  .photo-grid--scroll{
+    display:flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    max-width: none;
+    margin: 0;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 0 20px 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .photo-grid--scroll::-webkit-scrollbar{ display:none; }
+  .photo-grid--scroll .photo-tile{
+    flex: 0 0 140px;
+    width: 140px;
+    scroll-snap-align: start;
+  }
+}
 
 .video-frame{
   max-width: 760px;

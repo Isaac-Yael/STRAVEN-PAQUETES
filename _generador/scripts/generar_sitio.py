@@ -45,17 +45,17 @@ SECTION_META = {
     "detalles": (
         "CALIDAD VERIFICABLE",
         "Cada detalle, a la vista",
-        "Acércate y revisa el material, las costuras y el acabado real de las piezas — sin filtros.",
+        "Acércate y comprueba etiquetas, logos, hologramas y códigos que autentifican la originalidad de nuestros productos.",
     ),
     "individuales": (
         "CONTENIDO DEL PAQUETE",
-        "Esto es exactamente lo que recibes",
-        "Cada pieza fotografiada por separado, para que sepas con certeza qué estás comprando.",
+        "Productos de alta rotación en tu paquete",
+        "Fotografías ilustrativas que te muestran algo de lo que podrían venir en tu paquete.",
     ),
     "video": (
         "PRUEBA EN VIDEO",
         "Míralo en movimiento",
-        "Video real del paquete completo, grabado tal como se entrega.",
+        "Muestrario los productos que se han enviado en este paquete.",
     ),
     "grupales": (
         "VOLUMEN REAL",
@@ -335,7 +335,6 @@ def main():
 
     for p in products:
         view = make_view(p, "../")
-        others = [make_view(o, "../") for o in products if o["slug"] != p["slug"]][:4]
 
         product_json = json.dumps({
             "slug": p["slug"],
@@ -350,7 +349,6 @@ def main():
         html = producto_tpl.render(
             asset_prefix="../",
             p=view,
-            others=others,
             product_json=product_json,
             year=year,
             page_title=f"{p['nombre']} — STRAVEN Mayoreo",
