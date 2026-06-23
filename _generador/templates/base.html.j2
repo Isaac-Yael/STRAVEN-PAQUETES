@@ -10,15 +10,20 @@
 </head>
 <body class="{% block body_class %}{% endblock %}">
 <div class="bg-glow"></div>
-{% include "header.html.j2" %}
 
-<div class="trust-bar">
-  <div class="container trust-list">
-    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="14" height="11"/><path d="M15 9h4l3 3v5h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg>Envío Gratis</span>
-    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>100% original</span>
-    <span class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>Paga a 3 meses sin intereses</span>
+{% macro trust_msgs() -%}
+<span class="promo-marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="14" height="11"/><path d="M15 9h4l3 3v5h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg>Envío Gratis</span>
+<span class="promo-marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>100% original</span>
+<span class="promo-marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>Paga a 3 meses sin intereses</span>
+{%- endmacro %}
+<div class="promo-marquee">
+  <div class="promo-marquee-track">
+    <div class="promo-marquee-set">{{ trust_msgs() }}{{ trust_msgs() }}{{ trust_msgs() }}</div>
+    <div class="promo-marquee-set" aria-hidden="true">{{ trust_msgs() }}{{ trust_msgs() }}{{ trust_msgs() }}</div>
   </div>
 </div>
+
+{% include "header.html.j2" %}
 
 <main>
 {% block content %}{% endblock %}

@@ -58,6 +58,34 @@
       }
     }
 
+    // ---- Carrusel desktop: fotografías individuales ----
+    // En mobile el track se recorre con swipe (sin flechas); en desktop
+    // las flechas avanzan/retroceden de 5 en 5 fotos.
+    document.querySelectorAll(".js-carousel-track").forEach((track) => {
+      const wrap = track.closest(".photo-carousel-wrap");
+      if (!wrap) return;
+      const prevBtn = wrap.querySelector(".js-carousel-prev");
+      const nextBtn = wrap.querySelector(".js-carousel-next");
+      if (!prevBtn || !nextBtn) return;
+
+      function pageDistance() {
+        const tile = track.querySelector(".photo-tile");
+        if (!tile) return track.clientWidth;
+        const gap = parseFloat(getComputedStyle(track).gap) || 0;
+        return (tile.getBoundingClientRect().width + gap) * 5;
+      }
+      function updateArrows() {
+        const max = track.scrollWidth - track.clientWidth - 1;
+        prevBtn.disabled = track.scrollLeft <= 0;
+        nextBtn.disabled = max <= 0 || track.scrollLeft >= max;
+      }
+      prevBtn.addEventListener("click", () => track.scrollBy({ left: -pageDistance(), behavior: "smooth" }));
+      nextBtn.addEventListener("click", () => track.scrollBy({ left: pageDistance(), behavior: "smooth" }));
+      track.addEventListener("scroll", () => window.requestAnimationFrame(updateArrows));
+      window.addEventListener("resize", updateArrows);
+      updateArrows();
+    });
+
     // ---- Lightbox de fotos ----
     // Cada sección (principal / detalles / piezas individuales / foto grupal)
     // es su propio "grupo": el visor solo navega entre fotos de la misma

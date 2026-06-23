@@ -110,24 +110,37 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 
 /* ---------- Trust bar ---------- */
-.trust-bar{
+/* ===== Cinta de confianza: marquee animado encima del header ===== */
+.promo-marquee{
   border-bottom: 1px solid var(--border-soft);
   background: var(--bg-soft);
+  overflow: hidden;
+  white-space: nowrap;
 }
-.trust-list{
-  display:flex; align-items:center; justify-content:center;
-  flex-wrap: wrap;
-  gap: 28px;
-  padding: 11px 0;
+.promo-marquee-track{
+  display:flex;
+  width: max-content;
+  animation: promo-marquee-scroll 30s linear infinite;
 }
-.trust-item{
+.promo-marquee-set{ display:flex; align-items:center; flex: none; }
+.promo-marquee-item{
   display:flex; align-items:center; gap:8px;
   font-size: 12.5px; font-weight: 600;
   color: var(--text-dim);
   letter-spacing: .01em;
   white-space: nowrap;
+  padding: 11px 26px;
+  border-right: 1px solid var(--border-soft);
 }
-.trust-item svg{ width:15px; height:15px; color: var(--green); flex: none; }
+.promo-marquee-item svg{ width:15px; height:15px; color: var(--green); flex: none; }
+@keyframes promo-marquee-scroll{
+  from{ transform: translateX(0); }
+  to{ transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce){
+  .promo-marquee-track{ animation: none; }
+  .promo-marquee{ overflow-x: auto; }
+}
 
 /* ---------- Filtros de categoría ---------- */
 .filters-wrap{
@@ -547,18 +560,57 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 .photo-tile:hover img{ transform: scale(1.06); }
 
-/* Piezas individuales en mobile: una sola fila que se sale del
-   contenedor y se recorre con scroll horizontal (estilo "carrusel"). */
+/* ===== Piezas individuales: carrusel (desktop con flechas, mobile con
+   swipe horizontal). El track siempre se recorta sobre su propio límite
+   — nunca llega al borde de la pantalla en desktop. ===== */
+.photo-carousel-wrap{
+  display:flex; align-items:center; gap:12px;
+  max-width: 1040px; margin: 0 auto;
+}
+.carousel-arrow{
+  flex: 0 0 auto;
+  width:44px; height:44px; border-radius:50%;
+  background: var(--bg-elev-2); border:1px solid var(--border);
+  color: var(--text);
+  display:flex; align-items:center; justify-content:center;
+  transition: border-color .15s, color .15s, opacity .15s;
+}
+.carousel-arrow:hover{ border-color: var(--green); color: var(--green); }
+.carousel-arrow[disabled]{ opacity:.3; pointer-events:none; }
+
+@media (min-width: 901px){
+  .photo-grid--scroll{
+    display:flex;
+    flex-wrap: nowrap;
+    flex: 1 1 auto;
+    min-width: 0;
+    gap: 12px;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+  .photo-grid--scroll .photo-tile{
+    flex: 0 0 calc((100% - 4 * 12px) / 5);
+    width: auto;
+  }
+}
+
+/* Mobile: una sola fila que se sale del contenedor y se recorre con
+   scroll horizontal táctil (sin flechas). */
 @media (max-width: 900px){
+  .carousel-arrow{ display:none; }
+  .photo-carousel-wrap{
+    max-width: none;
+    margin: 0;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
   .photo-grid--scroll{
     display:flex;
     flex-wrap: nowrap;
     gap: 10px;
     max-width: none;
     margin: 0;
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
     padding: 0 20px 8px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -663,12 +715,8 @@ h1,h2,h3,h4,p{ margin:0; }
   .lightbox-close{ width:34px; height:34px; top:10px; right:10px; }
 }
 
-/* Buy box */
+/* Buy box — sin tarjeta visual, solo agrupa el contenido */
 .buy-box{
-  background: var(--bg-elev);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-lg);
-  padding: 26px;
   position: sticky;
   top: calc(var(--header-h) + 18px);
 }
@@ -703,6 +751,15 @@ h1,h2,h3,h4,p{ margin:0; }
 .added-toast{
   display:none;
   margin-top:12px; text-align:center; font-size:13px; font-weight:700; color: var(--green);
+}
+
+/* En mobile, todo el contenido del hero (caja de compra) va centrado */
+@media (max-width: 900px){
+  .buy-box{ text-align: center; }
+  .buy-eyebrow{ justify-content: center; }
+  .brand-logos{ justify-content: center; }
+  .buy-price-block{ justify-content: center; }
+  .qty-row{ justify-content: center; gap: 18px; }
 }
 
 /* ===== Descripción (landing, vertical) ===== */

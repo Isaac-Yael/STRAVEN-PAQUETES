@@ -41,7 +41,7 @@
       </div>
 
       <div class="buy-actions">
-        <button type="button" class="btn btn-primary btn-block js-buy-now">Comprar Ahora</button>
+        <button type="button" class="btn btn-primary btn-block js-buy-now">Comprar Ahora 🔥</button>
         <button type="button" class="btn btn-secondary btn-block js-add-to-cart">Agregar al Carrito</button>
       </div>
       <div class="added-toast" id="added-toast">✓ Paquete agregado a tu pedido</div>
@@ -118,8 +118,24 @@
         <source src="{{ sec.fotos[0].src }}">
       </video>
     </div>
+    {% elif sec.key == "individuales" %}
+    <div class="photo-carousel-wrap">
+      <button type="button" class="carousel-arrow js-carousel-prev" aria-label="Ver fotos anteriores" disabled>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="photo-grid photo-grid--scroll js-carousel-track">
+        {% for it in sec.fotos %}
+        <button type="button" class="photo-tile js-lightbox-img reveal" data-group="{{ sec.key }}" style="transition-delay:{{ (loop.index0 % 6) * 70 }}ms">
+          <img src="{{ it.src }}" alt="{{ p.nombre }} — {{ sec.title }}" loading="lazy">
+        </button>
+        {% endfor %}
+      </div>
+      <button type="button" class="carousel-arrow js-carousel-next" aria-label="Ver más fotos">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
     {% else %}
-    <div class="photo-grid{{ ' photo-grid--large' if sec.key == 'grupales' else '' }}{{ ' photo-grid--scroll' if sec.key == 'individuales' else '' }}">
+    <div class="photo-grid{{ ' photo-grid--large' if sec.key == 'grupales' else '' }}">
       {% for it in sec.fotos %}
       <button type="button" class="photo-tile js-lightbox-img reveal" data-group="{{ sec.key }}" style="transition-delay:{{ (loop.index0 % 6) * 70 }}ms">
         <img src="{{ it.src }}" alt="{{ p.nombre }} — {{ sec.title }}" loading="lazy">
@@ -142,7 +158,7 @@
       <p class="cta-banner-sub">Paquetes mayoristas con disponibilidad limitada.</p>
       {% endif %}
       <div class="cta-banner-price">{{ p.precio_total }}</div>
-      <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora</button>
+      <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora 🔥</button>
     </div>
   </div>
 </div>
@@ -204,7 +220,7 @@
       <p class="cta-banner-sub">Paquete completo de {{ p.pzas }} piezas, 100% original · Atención directa por WhatsApp.</p>
       <div class="cta-banner-price">{{ p.precio_total }}</div>
       <div class="final-cta-actions">
-        <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora</button>
+        <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora 🔥</button>
         <button type="button" class="btn btn-secondary js-add-to-cart">Agregar al Carrito</button>
       </div>
     </div>
@@ -217,7 +233,7 @@
       <div class="p">{{ p.precio_total }}</div>
       <div class="u">{{ p.precio_unitario }} c/u</div>
     </div>
-    <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora</button>
+    <button type="button" class="btn btn-primary js-buy-now">Comprar Ahora 🔥</button>
   </div>
   <button type="button" class="btn btn-secondary btn-block js-add-to-cart">Agregar al Carrito</button>
 </div>
