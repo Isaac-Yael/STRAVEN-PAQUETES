@@ -393,7 +393,7 @@ h1,h2,h3,h4,p{ margin:0; }
 .product-top{ padding: 26px 0 60px; }
 .product-grid{
   display:grid;
-  grid-template-columns: 1fr 1.15fr;
+  grid-template-columns: 1.25fr 1fr;
   gap: 38px;
   align-items: center;
 }
@@ -407,14 +407,15 @@ h1,h2,h3,h4,p{ margin:0; }
   .buy-box{ order: 1; }
 }
 
-/* Galería — foto principal del hero (clic abre el lightbox) */
+/* Galería — foto principal del hero (clic abre el lightbox), sin fondo
+   blanco: la foto "flota" directamente sobre el fondo oscuro del sitio.
+   Ancho ≈ 40% del viewport en cualquier tamaño, con piso y techo para
+   que nunca quede ilegible ni exagerada. */
 .gallery-main{
   position:relative;
-  width:100%;
-  background:#fff;
-  border:none; padding:0; margin:0;
-  border-radius: var(--radius-lg);
-  overflow:hidden;
+  width: clamp(170px, 40vw, 520px);
+  margin: 0 auto;
+  border:none; padding:0;
   aspect-ratio: 1/1;
   display:flex; align-items:center; justify-content:center;
   cursor: zoom-in;
@@ -432,13 +433,6 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 @media (prefers-reduced-motion: reduce){
   .gallery-main img{ animation: none; }
-}
-/* En mobile, la foto principal se reduce para no romper el layout */
-@media (max-width: 900px){
-  .gallery-main{
-    max-width: 300px;
-    margin: 0 auto;
-  }
 }
 
 /* ===================================================
@@ -488,18 +482,60 @@ h1,h2,h3,h4,p{ margin:0; }
 .story-title{ font-size: clamp(22px, 3.2vw, 30px); font-weight:800; line-height:1.25; margin-bottom:10px; }
 .story-sub{ color: var(--text-dim); font-size:15px; }
 
+/* ===== Mini-sección: Facilidades de pago ===== */
+.payment-methods{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:16px;
+  max-width: 760px; margin: 0 auto;
+}
+.payment-method{
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  width:128px; padding:20px 12px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.payment-method:hover{
+  transform: translateY(-5px);
+  border-color: var(--green);
+  box-shadow: 0 10px 24px rgba(166,255,26,.14);
+}
+.payment-method svg{ width:30px; height:30px; color: var(--green); flex:none; }
+.payment-method span{ font-size:12.5px; font-weight:700; text-align:center; line-height:1.3; color: var(--text); }
+
+/* ===== Mini-sección: Envío gratis ===== */
+.shipping-mini{ text-align:center; }
+.shipping-mini-icon{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:64px; height:64px; margin: 0 auto 16px; color: var(--green);
+}
+.shipping-mini-icon svg{ width:100%; height:100%; animation: ship-drive 2.2s ease-in-out infinite; }
+@keyframes ship-drive{
+  0%, 100%{ transform: translateX(0); }
+  50%{ transform: translateX(10px); }
+}
+.shipping-mini-title{
+  font-size: clamp(26px, 4.5vw, 42px); font-weight:900; letter-spacing:.03em; margin-bottom:8px;
+}
+.shipping-mini-sub{ color: var(--text-dim); font-size:15px; }
+@media (prefers-reduced-motion: reduce){
+  .shipping-mini-icon svg{ animation:none; }
+}
+
 .photo-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 12px;
   max-width: 900px;
   margin: 0 auto;
+  justify-content: center;
 }
 .photo-grid--large{
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
   max-width: 1000px;
   margin: 0 auto;
+  justify-content: center;
 }
 .photo-tile{
   position:relative;
@@ -647,7 +683,7 @@ h1,h2,h3,h4,p{ margin:0; }
   color: var(--green); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
   margin-bottom: 10px;
 }
-.buy-title{ font-size: clamp(22px,3vw,28px); font-weight:800; margin-bottom:14px; line-height:1.2; }
+.buy-title{ font-size: clamp(30px,4.4vw,46px); font-weight:800; margin-bottom:14px; line-height:1.15; }
 
 .brand-logos{ display:flex; gap:8px; margin: 0 0 18px; flex-wrap:wrap; }
 .brand-logo-chip{ width:42px; height:42px; border-radius:50%; background:#fff; border:1px solid var(--border); object-fit:contain; padding:6px; }
