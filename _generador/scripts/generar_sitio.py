@@ -161,10 +161,17 @@ def load_products():
             principal_file = next((f for f in principal_files if f.lower().startswith("principal")), None)
             principal_url = url_path("img", "PAQUETES", carpeta, principal_file) if principal_file else PLACEHOLDER_IMG
 
-            # Foto de héroe para la página individual del producto: si existe un
-            # archivo "principal_2.*" se usa esa (suele ser una toma más vistosa
-            # para la landing page); el catálogo/carrito siguen usando "principal.*".
-            principal_detail_file = next((f for f in principal_files if re.match(r"^principal_2\.", f, re.I)), None) or principal_file
+            # Foto de héroe para la página individual del producto: si existen
+            # archivos "principal_2.*", "principal_3.*", etc. (variantes más
+            # vistosas para la landing page, p.ej. con fondo ya recortado), se
+            # usa la de número más alto; el catálogo/carrito siguen usando
+            # "principal.*" tal cual.
+            numbered_principal_files = [f for f in principal_files if re.match(r"^principal_\d+\.", f, re.I)]
+            if numbered_principal_files:
+                numbered_principal_files.sort(key=lambda f: int(re.match(r"^principal_(\d+)\.", f, re.I).group(1)))
+                principal_detail_file = numbered_principal_files[-1]
+            else:
+                principal_detail_file = principal_file
             principal_detail_url = url_path("img", "PAQUETES", carpeta, principal_detail_file) if principal_detail_file else PLACEHOLDER_IMG
 
             logos = [url_path("img", "PAQUETES", carpeta, "logos", f)
