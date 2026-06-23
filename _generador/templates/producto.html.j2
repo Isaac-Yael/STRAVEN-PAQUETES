@@ -2,13 +2,6 @@
 {% block meta_desc %}{{ p.meta_desc }}{% endblock %}
 {% block body_class %}has-buybar{% endblock %}
 {% block content %}
-<div class="container product-nav">
-  <a href="{{ asset_prefix }}index.html" class="back-link">
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>
-    Volver al catálogo
-  </a>
-</div>
-
 <!-- ===== HERO: foto principal + caja de compra ===== -->
 <div class="container product-top">
   <div class="product-grid">
@@ -36,7 +29,7 @@
         <span class="buy-price">{{ p.precio_total }}</span>
         <span class="buy-price-label">precio del paquete completo</span>
       </div>
-      <div class="buy-unit">{{ p.precio_unitario }} c/u · {{ p.pzas }} piezas · {{ p.categoria }}</div>
+      <div class="buy-unit">{{ p.precio_unitario }} c/u · {{ p.pzas }} piezas</div>
 
       <div class="qty-row">
         <span class="qty-row-label">Cantidad de paquetes</span>
@@ -156,20 +149,49 @@
 {% endif %}
 {% endfor %}
 
-<!-- ===== ESPECIFICACIONES + DESCRIPCIÓN ===== -->
-<div class="container">
-  <div class="detail-lower">
-    <div>
-      <h2 class="block-title">Descripción</h2>
+{% macro spec_icon(key) -%}
+{% if key == "piezas" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>
+{% elif key == "precio_unit" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41L11 3.83A2 2 0 0 0 9.59 3.24L4 3a1 1 0 0 0-1 1l.24 5.59a2 2 0 0 0 .59 1.41l9.58 9.58a2 2 0 0 0 2.83 0l4.35-4.35a2 2 0 0 0 0-2.82z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg>
+{% elif key == "precio_total" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v6M18 9v6"/></svg>
+{% elif key == "marcas" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6 6.6.6-5 4.4 1.5 6.5L12 16l-5.9 3.5L7.6 13l-5-4.4 6.6-.6z"/></svg>
+{% elif key == "presentaciones" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5-9 5-9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
+{% elif key == "tallas" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="10" rx="1"/><path d="M6 7v4M10 7v3M14 7v4M18 7v3"/></svg>
+{% elif key == "peso" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3"/><path d="M5 7h14l1.5 12a2 2 0 0 1-2 2H5.5a2 2 0 0 1-2-2L5 7z"/><path d="M8 7a4 4 0 0 1 8 0"/></svg>
+{% elif key == "medidas" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h4M3 15h4M21 9h-4M21 15h-4M9 3v4M15 3v4M9 21v-4M15 21v-4"/></svg>
+{% elif key == "extras" %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 8l2-4h14l2 4"/><path d="M12 8v13"/></svg>
+{% endif %}
+{%- endmacro %}
+
+<!-- ===== DESCRIPCIÓN + ESPECIFICACIONES: mismo formato de landing page ===== -->
+<div class="story-section">
+  <div class="container">
+    <div class="story-head reveal">
+      <div class="story-eyebrow">SOBRE EL PAQUETE</div>
+      <h2 class="story-title">Descripción</h2>
+    </div>
+    <div class="desc-block reveal">
+      <svg class="desc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
       <p class="desc-text">{{ p.descripcion }}</p>
     </div>
-    <div>
-      <h2 class="block-title">Especificaciones completas</h2>
-      <table class="specs-table">
-        {% for label, value in p.specs %}
-        <tr><td>{{ label }}</td><td>{{ value }}</td></tr>
-        {% endfor %}
-      </table>
+  </div>
+</div>
+
+<div class="story-section">
+  <div class="container">
+    <div class="story-head reveal">
+      <div class="story-eyebrow">FICHA TÉCNICA</div>
+      <h2 class="story-title">Especificaciones completas</h2>
+    </div>
+    <div class="specs-grid">
+      {% for key, label, value in p.specs %}
+      <div class="spec-card reveal" style="transition-delay:{{ (loop.index0 % 6) * 60 }}ms">
+        <div class="spec-icon">{{ spec_icon(key) }}</div>
+        <div class="spec-text">
+          <div class="spec-label">{{ label }}</div>
+          <div class="spec-value">{{ value }}</div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
   </div>
 </div>

@@ -212,17 +212,19 @@ def load_products():
             primer_parrafo = re.sub(r"\s+", " ", primer_parrafo).strip()
             meta_desc = (primer_parrafo[:157] + "...") if len(primer_parrafo) > 160 else primer_parrafo
 
+            # Nota: la categoría se omite a propósito — no se muestra en la
+            # página de producto (cada paquete se vende por su propio mérito,
+            # no por su categoría).
             specs = [
-                ("Categoría", categoria),
-                ("Piezas por paquete", pzas),
-                ("Precio unitario", precio_unitario),
-                ("Precio total del paquete", precio_total),
-                ("Marcas incluidas", ", ".join(marcas) if marcas else "—"),
-                ("Presentaciones", ", ".join(presentaciones) if presentaciones else "—"),
-                ("Tallas / variantes", ", ".join(tallas) if tallas else "—"),
-                ("Peso del paquete", row.get("Peso", "").strip() or "—"),
-                ("Medidas (largo x ancho x alto)", medidas_fmt or "—"),
-                ("Extras incluidos", " · ".join(extras) if extras else "—"),
+                ("piezas", "Piezas por paquete", pzas),
+                ("precio_unit", "Precio unitario", precio_unitario),
+                ("precio_total", "Precio total del paquete", precio_total),
+                ("marcas", "Marcas incluidas", ", ".join(marcas) if marcas else "—"),
+                ("presentaciones", "Presentaciones", ", ".join(presentaciones) if presentaciones else "—"),
+                ("tallas", "Tallas / variantes", ", ".join(tallas) if tallas else "—"),
+                ("peso", "Peso del paquete", row.get("Peso", "").strip() or "—"),
+                ("medidas", "Medidas (largo x ancho x alto)", medidas_fmt or "—"),
+                ("extras", "Extras incluidos", " · ".join(extras) if extras else "—"),
             ]
 
             products.append({
