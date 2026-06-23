@@ -161,6 +161,12 @@ def load_products():
             principal_file = next((f for f in principal_files if f.lower().startswith("principal")), None)
             principal_url = url_path("img", "PAQUETES", carpeta, principal_file) if principal_file else PLACEHOLDER_IMG
 
+            # Foto de héroe para la página individual del producto: si existe un
+            # archivo "principal_2.*" se usa esa (suele ser una toma más vistosa
+            # para la landing page); el catálogo/carrito siguen usando "principal.*".
+            principal_detail_file = next((f for f in principal_files if re.match(r"^principal_2\.", f, re.I)), None) or principal_file
+            principal_detail_url = url_path("img", "PAQUETES", carpeta, principal_detail_file) if principal_detail_file else PLACEHOLDER_IMG
+
             logos = [url_path("img", "PAQUETES", carpeta, "logos", f)
                      for f in list_assets(os.path.join(base_dir, "logos"), IMG_EXTS)]
             detalles = [url_path("img", "PAQUETES", carpeta, "detalles", f)
@@ -184,7 +190,7 @@ def load_products():
             if videos:
                 gallery["video"] = {
                     "label": "Video",
-                    "items": [{"type": "video", "src": u, "poster": principal_url} for u in videos],
+                    "items": [{"type": "video", "src": u, "poster": principal_detail_url} for u in videos],
                 }
             if not gallery:
                 gallery["principal"] = {"label": "Principal", "items": [{"type": "image", "src": PLACEHOLDER_IMG}]}
@@ -232,6 +238,7 @@ def load_products():
                 "medidas": medidas_fmt,
                 "extras": extras,
                 "principal": principal_url,
+                "principal_detail": principal_detail_url,
                 "logos": logos,
                 "gallery": gallery,
                 "specs": specs,
@@ -275,6 +282,7 @@ def make_view(p, prefix):
     ya resueltas con el prefijo relativo correcto para la página donde se use."""
     v = dict(p)
     v["principal"] = prefix + p["principal"]
+    v["principal_detail"] = prefix + p["principal_detail"]
     v["logos"] = [prefix + u for u in p["logos"]]
     v["gallery"] = {
         key: {

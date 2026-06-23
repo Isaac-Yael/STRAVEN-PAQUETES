@@ -393,11 +393,19 @@ h1,h2,h3,h4,p{ margin:0; }
 .product-top{ padding: 26px 0 60px; }
 .product-grid{
   display:grid;
-  grid-template-columns: 1.3fr 1fr;
+  grid-template-columns: 1fr 1.15fr;
   gap: 38px;
-  align-items: start;
+  align-items: center;
 }
 @media (max-width: 900px){ .product-grid{ grid-template-columns: 1fr; gap:26px; } }
+
+/* Hero estilo landing page: en desktop el texto va a la izquierda y la
+   foto a la derecha (el orden en el HTML no cambia, así en mobile la
+   imagen sigue apareciendo primero). */
+@media (min-width: 901px){
+  .gallery{ order: 2; }
+  .buy-box{ order: 1; }
+}
 
 /* Galería — foto principal del hero (clic abre el lightbox) */
 .gallery-main{
@@ -413,6 +421,24 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 .gallery-main img, .gallery-main video{
   width:100%; height:100%; object-fit:contain;
+}
+/* Animación ligera de flotación para la foto del héroe */
+.gallery-main img{
+  animation: hero-float 4.5s ease-in-out infinite;
+}
+@keyframes hero-float{
+  0%, 100%{ transform: translateY(0); }
+  50%{ transform: translateY(-10px); }
+}
+@media (prefers-reduced-motion: reduce){
+  .gallery-main img{ animation: none; }
+}
+/* En mobile, la foto principal se reduce para no romper el layout */
+@media (max-width: 900px){
+  .gallery-main{
+    max-width: 300px;
+    margin: 0 auto;
+  }
 }
 
 /* ===================================================
@@ -634,17 +660,6 @@ h1,h2,h3,h4,p{ margin:0; }
 .buy-price-label{ font-size:13px; color: var(--text-faint); font-weight:600; }
 .buy-unit{ font-size:14px; color: var(--text-dim); margin-bottom:20px; }
 
-.spec-mini-grid{
-  display:grid; grid-template-columns: 1fr 1fr; gap:12px;
-  margin-bottom: 22px;
-}
-.spec-mini{
-  background: var(--bg-elev-2); border-radius: var(--radius-md);
-  padding: 12px 14px;
-}
-.spec-mini-label{ font-size:11px; color: var(--text-faint); font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:4px; }
-.spec-mini-value{ font-size:14px; font-weight:700; color: var(--text); }
-
 .qty-row{
   display:flex; align-items:center; justify-content:space-between;
   margin-bottom: 16px;
@@ -654,17 +669,6 @@ h1,h2,h3,h4,p{ margin:0; }
 .qty-row-label{ font-size:14px; font-weight:700; color: var(--text-dim); }
 
 .buy-actions{ display:flex; flex-direction:column; gap:10px; }
-
-.extras-box{
-  margin-top: 18px;
-  background: var(--green-glow);
-  border: 1px solid rgba(166,255,26,.3);
-  border-radius: var(--radius-md);
-  padding: 14px 16px;
-}
-.extras-title{ font-size:12.5px; font-weight:800; color: var(--green); margin-bottom:8px; text-transform:uppercase; letter-spacing:.04em; }
-.extras-list li{ font-size:13.5px; color: var(--text); padding:3px 0; display:flex; gap:8px; }
-.extras-list li svg{ width:15px; height:15px; color:var(--green); flex:none; margin-top:2px; }
 
 .added-toast{
   display:none;

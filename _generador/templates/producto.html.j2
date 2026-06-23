@@ -15,7 +15,7 @@
 
     <div class="gallery">
       <button type="button" class="gallery-main js-lightbox-img" data-group="principal">
-        <img src="{{ p.principal }}" alt="{{ p.nombre }}">
+        <img src="{{ p.principal_detail }}" alt="{{ p.nombre }}">
       </button>
     </div>
 
@@ -38,25 +38,6 @@
       </div>
       <div class="buy-unit">{{ p.precio_unitario }} c/u · {{ p.pzas }} piezas · {{ p.categoria }}</div>
 
-      <div class="spec-mini-grid">
-        <div class="spec-mini">
-          <div class="spec-mini-label">Piezas</div>
-          <div class="spec-mini-value">{{ p.pzas }}</div>
-        </div>
-        <div class="spec-mini">
-          <div class="spec-mini-label">Marcas</div>
-          <div class="spec-mini-value">{{ p.marcas|join(", ") if p.marcas else "—" }}</div>
-        </div>
-        <div class="spec-mini">
-          <div class="spec-mini-label">Peso</div>
-          <div class="spec-mini-value">{{ p.peso or "—" }}</div>
-        </div>
-        <div class="spec-mini">
-          <div class="spec-mini-label">Medidas</div>
-          <div class="spec-mini-value">{{ p.medidas or "—" }}</div>
-        </div>
-      </div>
-
       <div class="qty-row">
         <span class="qty-row-label">Cantidad de paquetes</span>
         <div class="qty-stepper">
@@ -71,20 +52,6 @@
         <button type="button" class="btn btn-secondary btn-block js-add-to-cart">Agregar al Carrito</button>
       </div>
       <div class="added-toast" id="added-toast">✓ Paquete agregado a tu pedido</div>
-
-      {% if p.extras %}
-      <div class="extras-box">
-        <div class="extras-title">Este paquete incluye</div>
-        <ul class="extras-list">
-          {% for e in p.extras %}
-          <li>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
-            {{ e }}
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
 
       {% if p.gallery_sections %}
       <div class="scroll-hint">
