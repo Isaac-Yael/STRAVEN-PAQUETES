@@ -29,6 +29,7 @@
 
 <main>
 {% block content %}{% endblock %}
+{% include "faq.html.j2" %}
 </main>
 
 {% include "footer.html.j2" %}
@@ -39,6 +40,7 @@
 
 <script src="{{ asset_prefix }}js/config.js"></script>
 <script src="{{ asset_prefix }}js/cart.js"></script>
+<script src="{{ asset_prefix }}js/site.js"></script>
 {% block extra_scripts %}{% endblock %}
 </body>
 </html>

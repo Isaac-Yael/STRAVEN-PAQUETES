@@ -64,28 +64,47 @@
       }
     }
 
-    // ---- Animación de aparición al hacer scroll ----
-    // Textos (story-head) y fotos/video (photo-tile, video-frame) entran
-    // con un fade + slide sutil la primera vez que cruzan el viewport.
-    const revealEls = document.querySelectorAll(".reveal");
-    if (revealEls.length) {
-      if ("IntersectionObserver" in window) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("is-visible");
-                io.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
-        );
-        revealEls.forEach((el) => io.observe(el));
-      } else {
-        revealEls.forEach((el) => el.classList.add("is-visible"));
+    // ---- Countdown de oferta: 78h por visitante, en bucle infinito ----
+    // Cada visitante tiene su propio plazo guardado en localStorage (clave
+    // compartida en todo el sitio): al entrar por primera vez se le asignan
+    // 78h; si vuelve después de que el plazo terminó, se le asigna un nuevo
+    // plazo de 78h automáticamente. Es un recordatorio de urgencia/escasez
+    // — no afecta el precio real ni ninguna lógica de negocio.
+    (function () {
+      const cdEl = document.getElementById("buy-countdown");
+      if (!cdEl) return;
+      const hEl = cdEl.querySelector(".js-cd-h");
+      const mEl = cdEl.querySelector(".js-cd-m");
+      const sEl = cdEl.querySelector(".js-cd-s");
+      const DURATION_MS = 78 * 60 * 60 * 1000;
+      const STORAGE_KEY = "straven_offer_deadline";
+
+      function getDeadline() {
+        let deadline = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+        if (!deadline || isNaN(deadline) || deadline <= Date.now()) {
+          deadline = Date.now() + DURATION_MS;
+          try { localStorage.setItem(STORAGE_KEY, String(deadline)); } catch (e) {}
+        }
+        return deadline;
       }
-    }
+
+      let deadline = getDeadline();
+      function pad(n) { return String(n).padStart(2, "0"); }
+
+      function tick() {
+        let remaining = deadline - Date.now();
+        if (remaining <= 0) {
+          deadline = getDeadline();
+          remaining = deadline - Date.now();
+        }
+        const totalSeconds = Math.floor(remaining / 1000);
+        hEl.textContent = pad(Math.floor(totalSeconds / 3600));
+        mEl.textContent = pad(Math.floor((totalSeconds % 3600) / 60));
+        sEl.textContent = pad(totalSeconds % 60);
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
 
     // ---- Carrusel: fotografías individuales ----
     // Avanza solo (derecha→izquierda) cada 1.5s. El usuario puede tomar el

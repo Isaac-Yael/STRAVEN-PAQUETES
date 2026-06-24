@@ -800,6 +800,40 @@ h1,h2,h3,h4,p{ margin:0; }
 .buy-price{ font-size: 36px; font-weight:800; color: var(--green); letter-spacing:-.01em; font-variant-numeric: tabular-nums; }
 .buy-unit{ font-size:14px; color: var(--text-dim); margin-bottom:20px; }
 
+/* ===== Countdown de oferta: presión de urgencia en el hero ===== */
+.buy-countdown{
+  display:flex; flex-direction:column; gap:10px;
+  background: var(--bg-elev);
+  border: 1px solid rgba(166,255,26,.25);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+}
+.buy-countdown-label{
+  display:flex; align-items:center; gap:7px;
+  font-size:12px; font-weight:700; color: var(--text-dim);
+  letter-spacing:.01em;
+}
+.buy-countdown-label svg{ color: var(--green); flex:none; }
+.buy-countdown-timer{ display:flex; align-items:center; gap:8px; }
+.buy-countdown-unit{
+  display:flex; flex-direction:column; align-items:center;
+  background: var(--bg-elev-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  min-width:48px;
+  padding:6px 4px 5px;
+}
+.buy-countdown-unit span{
+  font-size:19px; font-weight:800; color: var(--green);
+  font-variant-numeric: tabular-nums; line-height:1;
+}
+.buy-countdown-unit small{
+  font-size:9.5px; color: var(--text-faint); font-weight:700;
+  text-transform:uppercase; letter-spacing:.03em; margin-top:2px;
+}
+.buy-countdown-sep{ color: var(--text-faint); font-weight:800; font-size:16px; }
+
 .buy-actions{ display:flex; flex-direction:column; gap:10px; }
 
 /* ===== Métodos de pago, versión compacta del hero ===== */
@@ -824,6 +858,9 @@ h1,h2,h3,h4,p{ margin:0; }
   .buy-eyebrow{ justify-content: center; }
   .brand-logos{ justify-content: center; }
   .buy-price-block{ align-items: center; text-align: center; }
+  .buy-countdown{ align-items: center; }
+  .buy-countdown-label{ justify-content: center; text-align:center; }
+  .buy-countdown-timer{ justify-content: center; }
 }
 
 /* ===== Descripción (landing, vertical) ===== */
@@ -915,6 +952,38 @@ h1,h2,h3,h4,p{ margin:0; }
   body.has-buybar .whatsapp-float{ bottom: 150px; }
 }
 
+/* ===== Preguntas Frecuentes: acordeón, igual en todas las páginas ===== */
+.faq-list{
+  max-width: 760px; margin: 0 auto;
+  display:flex; flex-direction:column; gap:12px;
+}
+.faq-item{
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.faq-question{
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:14px;
+  background:none; border:none; cursor:pointer;
+  padding: 18px 20px;
+  font-size:15.5px; font-weight:700; color: var(--text);
+  text-align:left;
+}
+.faq-chevron{ flex:none; color: var(--green); transition: transform .3s ease; }
+.faq-item.is-open .faq-chevron{ transform: rotate(180deg); }
+.faq-answer{
+  max-height:0; overflow:hidden;
+  transition: max-height .35s cubic-bezier(.16,.84,.44,1);
+}
+.faq-answer p{
+  margin:0; padding: 0 20px 18px;
+  color: var(--text-dim); font-size:14.5px; line-height:1.65;
+}
+@media (max-width: 480px){
+  .faq-question{ padding:16px 16px; font-size:14.5px; }
+  .faq-answer p{ padding: 0 16px 16px; }
+}
 
 /* Empty state helper (placeholder) */
 .no-results{ text-align:center; padding: 70px 0; color: var(--text-faint); font-size:15px; }
