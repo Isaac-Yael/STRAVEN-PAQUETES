@@ -155,6 +155,15 @@ def load_products():
             precio_total = row["Precio Total"].strip()
             slug = carpeta.lower()
 
+            # Datos de rentabilidad para la sección "Crece tus Ganancias":
+            # valores tal cual los captura el dueño del negocio en el CSV
+            # (no se recalculan en código, ya que "Ganancia por paquete" no
+            # siempre es una simple multiplicación de "Le ganas" x Pzas).
+            compra_unit = row.get("Lo compras en", "").strip()
+            venta_unit = row.get("Lo vendes en", "").strip()
+            ganancia_unit = row.get("Le ganas", "").strip()
+            ganancia_paquete = row.get("Ganancia por paquete", "").strip()
+
             base_dir = os.path.join(PAQUETES_DIR, carpeta)
 
             principal_files = list_assets(base_dir, IMG_EXTS)
@@ -238,6 +247,14 @@ def load_products():
                 "precio_unitario_num": parse_money(precio_unitario),
                 "precio_total": precio_total,
                 "precio_total_num": parse_money(precio_total),
+                "compra_unit": compra_unit,
+                "compra_unit_num": parse_money(compra_unit),
+                "venta_unit": venta_unit,
+                "venta_unit_num": parse_money(venta_unit),
+                "ganancia_unit": ganancia_unit,
+                "ganancia_unit_num": parse_money(ganancia_unit),
+                "ganancia_paquete": ganancia_paquete,
+                "ganancia_paquete_num": parse_money(ganancia_paquete),
                 "descripcion": row.get("Descripción", "").strip(),
                 "meta_desc": meta_desc,
                 "marcas": marcas,

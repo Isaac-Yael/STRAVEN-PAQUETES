@@ -406,6 +406,79 @@ h1,h2,h3,h4,p{ margin:0; }
 .story-title{ font-size: clamp(22px, 3.2vw, 30px); font-weight:800; line-height:1.25; margin-bottom:10px; }
 .story-sub{ color: var(--text-dim); font-size:15px; }
 
+/* ===== Crece tus Ganancias: tabla comparativa de rentabilidad ===== */
+.profit-section{ background: var(--bg-soft); }
+.profit-grid{
+  display:flex; align-items:center; justify-content:center;
+  gap:14px; flex-wrap:wrap;
+  max-width: 940px; margin: 0 auto;
+}
+.profit-card{
+  flex: 1 1 200px; max-width: 240px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 26px 18px;
+  text-align:center;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.profit-card:hover{ transform: translateY(-4px); border-color: var(--green); }
+.profit-card-icon{
+  width:48px; height:48px; margin: 0 auto 14px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background: var(--bg-elev-2);
+  color: var(--text-dim);
+}
+.profit-card-icon svg{ width:24px; height:24px; }
+.profit-card-label{
+  font-size:12.5px; font-weight:700; color: var(--text-faint);
+  text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;
+}
+.profit-card-value{ font-size:25px; font-weight:800; color: var(--text); font-variant-numeric: tabular-nums; }
+.profit-card-sub{ font-size:12px; color: var(--text-faint); margin-top:4px; }
+
+.profit-card-win{
+  background: var(--green-glow);
+  border-color: var(--green);
+  box-shadow: 0 14px 30px -16px rgba(166,255,26,.5);
+}
+.profit-card-win .profit-card-icon{ background: var(--green); color:#0a0a0a; }
+.profit-card-win .profit-card-label{ color: var(--green-deep); }
+.profit-card-win .profit-card-value{ color: var(--green); font-size:29px; }
+
+.profit-arrow{ color: var(--text-faint); flex: 0 0 auto; display:flex; }
+.profit-arrow svg{ width:22px; height:22px; }
+
+.profit-total{
+  display:flex; align-items:center; justify-content:center; gap:18px;
+  max-width: 720px; margin: 32px auto 0;
+  padding: 22px 28px;
+  background: linear-gradient(135deg, var(--green-glow), transparent);
+  border: 1px solid var(--green);
+  border-radius: var(--radius-lg);
+  text-align:left;
+}
+.profit-total-icon{
+  flex:none; width:46px; height:46px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background: var(--green); color:#0a0a0a;
+}
+.profit-total-icon svg{ width:24px; height:24px; }
+.profit-total-text{ display:flex; flex-direction:column; gap:2px; }
+.profit-total-label{ font-size:13.5px; color: var(--text-dim); font-weight:600; }
+.profit-total-value{ font-size:32px; font-weight:800; color: var(--green); letter-spacing:-.01em; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 700px){
+  .profit-grid{ flex-direction:column; }
+  .profit-card{ width:100%; max-width:320px; }
+  .profit-arrow{ transform: rotate(90deg); }
+}
+@media (max-width: 480px){
+  .profit-total{ flex-direction:column; text-align:center; padding:22px 20px; }
+}
+
 /* ===== Mini-sección: Facilidades de pago ===== */
 .payment-methods{
   display:flex; flex-wrap:wrap; justify-content:center; gap:16px;
