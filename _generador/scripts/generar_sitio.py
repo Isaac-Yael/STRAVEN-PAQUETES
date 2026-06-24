@@ -40,7 +40,7 @@ VIDEO_EXTS = (".mp4", ".mov", ".webm")
 # Orden y copy persuasivo de las secciones de "landing page" en la página
 # de producto. Cada tupla: (eyebrow, título, subtítulo). Solo se renderiza
 # la sección si el paquete tiene fotos/video reales en esa carpeta.
-SECTION_ORDER_KEYS = ["detalles", "individuales", "video", "grupales"]
+SECTION_ORDER_KEYS = ["individuales", "detalles", "video"]
 SECTION_META = {
     "detalles": (
         "CALIDAD VERIFICABLE",
@@ -56,11 +56,6 @@ SECTION_META = {
         "PRUEBA EN VIDEO",
         "Míralo en movimiento",
         "Muestrario los productos que se han enviado en este paquete.",
-    ),
-    "grupales": (
-        "VOLUMEN REAL",
-        "Así de grande es tu inventario",
-        "El paquete completo, listo para empacar y revender.",
     ),
 }
 
@@ -191,6 +186,10 @@ def load_products():
                             for f in list_assets(os.path.join(base_dir, "fotos individuales"), IMG_EXTS)]
             grupales = [url_path("img", "PAQUETES", carpeta, "foto grupal", f)
                         for f in list_assets(os.path.join(base_dir, "foto grupal"), IMG_EXTS)]
+            # Las fotos de "foto grupal" (el paquete completo armado) ya no
+            # tienen sección propia: se integran al final del carrusel de
+            # "fotos individuales".
+            individuales = individuales + grupales
             videos = [url_path("img", "PAQUETES", carpeta, "video", f)
                       for f in list_assets(os.path.join(base_dir, "video"), VIDEO_EXTS)]
 
@@ -201,8 +200,6 @@ def load_products():
                 gallery["detalles"] = {"label": "Detalles", "items": [{"type": "image", "src": u} for u in detalles]}
             if individuales:
                 gallery["individuales"] = {"label": "Piezas individuales", "items": [{"type": "image", "src": u} for u in individuales]}
-            if grupales:
-                gallery["grupales"] = {"label": "Foto grupal", "items": [{"type": "image", "src": u} for u in grupales]}
             if videos:
                 gallery["video"] = {
                     "label": "Video",

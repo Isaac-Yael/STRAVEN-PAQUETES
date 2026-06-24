@@ -614,6 +614,7 @@ h1,h2,h3,h4,p{ margin:0; }
     min-width: 0;
     gap: 12px;
     overflow-x: hidden;
+    overflow-y: hidden;
     scroll-behavior: smooth;
   }
   .photo-grid--scroll .photo-tile{
@@ -641,6 +642,7 @@ h1,h2,h3,h4,p{ margin:0; }
     margin: 0;
     padding: 0 20px 8px;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
