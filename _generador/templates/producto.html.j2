@@ -16,26 +16,6 @@
 {% endif %}
 {%- endmacro %}
 
-{% macro brands_mini_section() -%}
-<!-- ===== MINI-SECCIÓN: marcas premium ===== -->
-<div class="story-section brands-mini-section">
-  <div class="container">
-    <div class="story-head reveal">
-      <div class="story-eyebrow">CALIDAD GARANTIZADA</div>
-      <h2 class="story-title">Manejamos marcas premium</h2>
-      <p class="story-sub">Inventario 100% original, directo de las marcas más reconocidas del mercado.</p>
-    </div>
-    <div class="brands-mini-row">
-      {% for logo in p.logos %}
-      <div class="brands-mini-logo reveal" style="transition-delay:{{ (loop.index0 % 6) * 70 }}ms">
-        <img src="{{ logo }}" alt="Marca premium incluida en el paquete">
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</div>
-{%- endmacro %}
-
 <!-- ===== HERO: foto principal + caja de compra ===== -->
 <div class="container product-top">
   <div class="product-grid">
@@ -166,22 +146,7 @@
 {% endif %}
 
 <!-- ===== SECCIONES NARRATIVAS: fotos individuales, detalles y video — aparecen al hacer scroll, justo después de "Crece tus Ganancias" ===== -->
-{% set tiene_video = p.gallery_sections | selectattr("key", "equalto", "video") | list | length > 0 %}
 {% for sec in p.gallery_sections %}
-{% if sec.key == "individuales" %}
-<!-- ===== MINI-SECCIÓN: envío gratis (antes de "fotografías individuales") ===== -->
-<div class="story-section shipping-mini-section">
-  <div class="container">
-    <div class="shipping-mini reveal">
-      <div class="shipping-mini-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="6" width="14" height="11"/><path d="M15 9h4l3 3v5h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17" cy="19" r="1.6"/></svg>
-      </div>
-      <h2 class="shipping-mini-title">ENVÍO GRATIS</h2>
-      <p class="shipping-mini-sub">Envíos a toda la República Mexicana</p>
-    </div>
-  </div>
-</div>
-{% endif %}
 <div class="story-section">
   <div class="container">
     <div class="story-head reveal">
@@ -217,10 +182,6 @@
   </div>
 </div>
 
-{% if sec.key == "video" and p.logos %}
-{{ brands_mini_section() }}
-{% endif %}
-
 {% if loop.index == 2 or loop.last %}
 <div class="story-section cta-banner-section">
   <div class="container">
@@ -239,10 +200,6 @@
 </div>
 {% endif %}
 {% endfor %}
-
-{% if not tiene_video and p.logos %}
-{{ brands_mini_section() }}
-{% endif %}
 
 <!-- ===== MINI-SECCIÓN: facilidades de pago ===== -->
 <div class="story-section payment-mini-section">
@@ -323,6 +280,35 @@
     </div>
   </div>
 </div>
+
+{% if p.testimonios %}
+<!-- ===== TESTIMONIOS: capturas reales de clientes ===== -->
+<div class="story-section testimonials-section">
+  <div class="container">
+    <div class="story-head reveal">
+      <div class="story-eyebrow">CLIENTES REALES</div>
+      <h2 class="story-title">Esto dicen quienes ya compraron</h2>
+      <p class="story-sub">Capturas reales de conversaciones con clientes que ya recibieron su paquete y están revendiendo con éxito.</p>
+    </div>
+    <div class="photo-carousel-wrap">
+      <button type="button" class="carousel-arrow js-carousel-prev" aria-label="Ver testimonios anteriores" disabled>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="photo-grid photo-grid--scroll testimonials-grid js-carousel-track">
+        {% for src in p.testimonios %}
+        <button type="button" class="photo-tile testimonial-tile js-lightbox-img reveal" data-group="testimonios" style="transition-delay:{{ (loop.index0 % 6) * 70 }}ms">
+          <img src="{{ src }}" alt="Testimonio de cliente STRAVEN" loading="lazy">
+        </button>
+        {% endfor %}
+      </div>
+      <button type="button" class="carousel-arrow js-carousel-next" aria-label="Ver más testimonios">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+    <div class="carousel-dots js-carousel-dots" role="tablist" aria-label="Navegación del carrusel de testimonios"></div>
+  </div>
+</div>
+{% endif %}
 
 <div class="mobile-buybar">
   <div class="mobile-buybar-row">

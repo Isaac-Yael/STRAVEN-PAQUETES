@@ -33,6 +33,9 @@ CSV_PATH = os.path.join(ROOT, "img", "PAQUETES", "PAQUETES.csv")
 PAQUETES_DIR = os.path.join(ROOT, "img", "PAQUETES")
 PRODUCTOS_OUT_DIR = os.path.join(ROOT, "productos")
 PLACEHOLDER_IMG = "img/placeholder.svg"
+# Carpeta global (no por paquete) con capturas de pantalla de testimonios
+# de clientes reales — se muestran igual en todas las páginas de producto.
+TESTIMONIOS_DIR = os.path.join(ROOT, "img", "testimonios")
 
 IMG_EXTS = (".jpg", ".jpeg", ".png", ".webp")
 VIDEO_EXTS = (".mp4", ".mov", ".webm")
@@ -341,6 +344,10 @@ def main():
     categories_raw = group_by_category(products)
     year = datetime.now().year
 
+    # Testimonios: capturas de pantalla reales de clientes, en una carpeta
+    # global (no por paquete) — las mismas se muestran en todas las páginas.
+    testimonios_base = [url_path("img", "testimonios", f) for f in list_assets(TESTIMONIOS_DIR, IMG_EXTS)]
+
     env = Environment(loader=FileSystemLoader(TEMPLATES_DIR), autoescape=True, trim_blocks=True, lstrip_blocks=True)
 
     # ---- index.html (prefix "" : está en la raíz) ----
@@ -354,6 +361,7 @@ def main():
         asset_prefix="",
         categories=index_categories,
         products=index_products,
+        testimonios=prefix_paths(testimonios_base, ""),
         year=year,
         page_title="STRAVEN — Catálogo Mayorista | Paquetes 100% originales",
     )
@@ -366,6 +374,7 @@ def main():
 
     for p in products:
         view = make_view(p, "../")
+        view["testimonios"] = prefix_paths(testimonios_base, "../")
 
         product_json = json.dumps({
             "slug": p["slug"],
