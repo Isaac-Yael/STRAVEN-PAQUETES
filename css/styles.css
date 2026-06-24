@@ -65,9 +65,18 @@ h1,h2,h3,h4,p{ margin:0; }
   z-index: 0;
 }
 
-/* ---------- Marquee + header: fijos juntos en la parte superior ---------- */
+/* ---------- Marquee + header: fijos juntos en la parte superior -----------
+   position:fixed (no sticky): Safari/WebKit ignora "position: sticky" si
+   cualquier ancestro (aquí html/body) tiene overflow distinto de visible,
+   y el sitio usa overflow-x:hidden en html/body. fixed no tiene ese problema
+   y el resultado visual es idéntico ya que esta barra siempre va arriba.
+   El padding-top de <main> compensa el espacio que sticky reservaba solo. */
 .site-top-fixed{
-  position: sticky; top:0; z-index: 50;
+  position: fixed; top:0; left:0; right:0; z-index: 50;
+}
+main{
+  display: block;
+  padding-top: calc(var(--marquee-h) + var(--header-h));
 }
 
 /* ---------- Header ---------- */
