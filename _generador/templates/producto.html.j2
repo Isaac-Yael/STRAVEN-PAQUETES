@@ -39,22 +39,26 @@
       </div>
       {% endif %}
 
-      <div class="buy-price-block">
-        <span class="buy-price js-count-price" data-count="load" data-final="{{ p.precio_total_num }}">{{ p.precio_total }}</span>
-      </div>
-      <div class="buy-unit">{{ p.precio_unitario }} c/u · {{ p.pzas }} piezas</div>
-
-      <div class="buy-countdown" id="buy-countdown">
-        <div class="buy-countdown-label">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-          Oferta por tiempo limitado · termina en
+      <div class="buy-price-row">
+        <div class="buy-price-col">
+          <div class="buy-price-block">
+            <span class="buy-price js-count-price" data-count="load" data-final="{{ p.precio_total_num }}">{{ p.precio_total }}</span>
+          </div>
+          <div class="buy-unit">{{ p.precio_unitario }} c/u · {{ p.pzas }} piezas</div>
         </div>
-        <div class="buy-countdown-timer" aria-live="polite">
-          <div class="buy-countdown-unit"><span class="js-cd-h">--</span><small>hrs</small></div>
-          <span class="buy-countdown-sep">:</span>
-          <div class="buy-countdown-unit"><span class="js-cd-m">--</span><small>min</small></div>
-          <span class="buy-countdown-sep">:</span>
-          <div class="buy-countdown-unit"><span class="js-cd-s">--</span><small>seg</small></div>
+
+        <div class="buy-countdown" id="buy-countdown">
+          <div class="buy-countdown-label">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            Oferta por tiempo limitado · termina en
+          </div>
+          <div class="buy-countdown-timer" aria-live="polite">
+            <div class="buy-countdown-unit"><span class="js-cd-h">--</span><small>hrs</small></div>
+            <span class="buy-countdown-sep">:</span>
+            <div class="buy-countdown-unit"><span class="js-cd-m">--</span><small>min</small></div>
+            <span class="buy-countdown-sep">:</span>
+            <div class="buy-countdown-unit"><span class="js-cd-s">--</span><small>seg</small></div>
+          </div>
         </div>
       </div>
 

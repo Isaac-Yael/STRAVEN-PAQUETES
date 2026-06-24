@@ -5,6 +5,26 @@
    ========================================================= */
 (function () {
   document.addEventListener("DOMContentLoaded", () => {
+    // ---- Menú: hamburguesa en mobile ----
+    // El mismo <nav> se muestra inline en desktop y colapsado en mobile;
+    // este botón solo alterna su visibilidad y cierra el menú al navegar.
+    const burger = document.querySelector(".js-header-burger");
+    const headerNav = document.getElementById("header-nav");
+    if (burger && headerNav) {
+      burger.addEventListener("click", () => {
+        const isOpen = headerNav.classList.toggle("is-open");
+        burger.classList.toggle("is-open", isOpen);
+        burger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+      headerNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          headerNav.classList.remove("is-open");
+          burger.classList.remove("is-open");
+          burger.setAttribute("aria-expanded", "false");
+        });
+      });
+    }
+
     // ---- Animación de aparición al hacer scroll ----
     // Cualquier elemento con clase .reveal entra con un fade + slide sutil
     // la primera vez que cruza el viewport. Usado por textos, fotos/video

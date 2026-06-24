@@ -36,7 +36,19 @@
     <a href="../index.html" class="brand">
       <img src="../img/logo.webp" alt="STRAVEN" class="brand-logo">
     </a>
-    <div class="header-tag">Catálogo Mayorista</div>
+
+    <div class="header-right">
+      <div class="header-tag">Catálogo Mayorista</div>
+
+      <nav class="header-nav" id="header-nav">
+        <a href="#faq" class="header-nav-link">Preguntas Frecuentes</a>
+        <a href="../index.html" class="btn btn-secondary header-nav-cta">Más paquetes</a>
+      </nav>
+
+      <button type="button" class="header-burger js-header-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="header-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header></div>
 
@@ -63,22 +75,26 @@
       <div class="brand-logos">
 <img src="../img/PAQUETES/P40JL/logos/1.jpg" class="brand-logo-chip" alt="Marca incluida en el paquete">      </div>
 
-      <div class="buy-price-block">
-        <span class="buy-price js-count-price" data-count="load" data-final="11960.0">$11,960.00</span>
-      </div>
-      <div class="buy-unit">$299.00 c/u · 40 piezas</div>
-
-      <div class="buy-countdown" id="buy-countdown">
-        <div class="buy-countdown-label">
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-          Oferta por tiempo limitado · termina en
+      <div class="buy-price-row">
+        <div class="buy-price-col">
+          <div class="buy-price-block">
+            <span class="buy-price js-count-price" data-count="load" data-final="11960.0">$11,960.00</span>
+          </div>
+          <div class="buy-unit">$299.00 c/u · 40 piezas</div>
         </div>
-        <div class="buy-countdown-timer" aria-live="polite">
-          <div class="buy-countdown-unit"><span class="js-cd-h">--</span><small>hrs</small></div>
-          <span class="buy-countdown-sep">:</span>
-          <div class="buy-countdown-unit"><span class="js-cd-m">--</span><small>min</small></div>
-          <span class="buy-countdown-sep">:</span>
-          <div class="buy-countdown-unit"><span class="js-cd-s">--</span><small>seg</small></div>
+
+        <div class="buy-countdown" id="buy-countdown">
+          <div class="buy-countdown-label">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            Oferta por tiempo limitado · termina en
+          </div>
+          <div class="buy-countdown-timer" aria-live="polite">
+            <div class="buy-countdown-unit"><span class="js-cd-h">--</span><small>hrs</small></div>
+            <span class="buy-countdown-sep">:</span>
+            <div class="buy-countdown-unit"><span class="js-cd-m">--</span><small>min</small></div>
+            <span class="buy-countdown-sep">:</span>
+            <div class="buy-countdown-unit"><span class="js-cd-s">--</span><small>seg</small></div>
+          </div>
         </div>
       </div>
 
@@ -506,7 +522,7 @@ Ideal para revendedores y negocios que buscan mercancía de alta rotación, exce
 
 <script type="application/json" id="product-data">{"slug": "p40jl", "nombre": "Paquete de 40 Jeans LEVIS", "imagen": "../img/PAQUETES/P40JL/principal.jpg", "precio": 11960.0, "precioStr": "$11,960.00", "categoria": "Jeans", "pzas": "40"}</script>
 <!-- ===== PREGUNTAS FRECUENTES: acordeón, igual en todas las páginas ===== -->
-<div class="story-section faq-section">
+<div class="story-section faq-section" id="faq">
   <div class="container">
     <div class="story-head reveal">
       <div class="story-eyebrow">PREGUNTAS FRECUENTES</div>

@@ -31,6 +31,10 @@
 
 *{ box-sizing: border-box; }
 html, body{ margin:0; padding:0; max-width:100%; overflow-x: hidden; }
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+}
 body{
   background: var(--bg);
   color: var(--text);
@@ -75,6 +79,7 @@ h1,h2,h3,h4,p{ margin:0; }
   border-bottom: 1px solid var(--border-soft);
 }
 .header-inner{
+  position: relative;
   display:flex; align-items:center; justify-content:space-between;
   width:100%; gap:16px;
 }
@@ -90,6 +95,56 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 @media (max-width: 600px){
   .header-tag{ display:none; }
+}
+
+/* ---------- Menú: "Preguntas Frecuentes" + "Más paquetes" ---------- */
+.header-right{
+  display:flex; align-items:center; gap:22px;
+}
+.header-nav{
+  display:flex; align-items:center; gap:20px;
+}
+.header-nav-link{
+  font-size:13.5px; font-weight:700; color: var(--text-dim);
+  white-space:nowrap; transition: color .15s;
+}
+.header-nav-link:hover{ color: var(--text); }
+.header-nav-cta{ padding: 9px 18px; font-size:13px; white-space:nowrap; }
+
+.header-burger{
+  display:none;
+  flex-direction:column; justify-content:center; align-items:center; gap:5px;
+  width:38px; height:38px; flex:none;
+  background:none; border:1px solid var(--border); border-radius: var(--radius-sm);
+  cursor:pointer;
+}
+.header-burger span{
+  display:block; width:18px; height:2px;
+  background: var(--text); border-radius:2px;
+  transition: transform .25s ease, opacity .25s ease;
+}
+.header-burger.is-open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.header-burger.is-open span:nth-child(2){ opacity:0; }
+.header-burger.is-open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 900px){
+  .header-nav{
+    display:none;
+    position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; align-items:stretch; gap:0;
+    background: var(--bg-elev);
+    border-bottom: 1px solid var(--border-soft);
+    box-shadow: 0 18px 30px -18px rgba(0,0,0,.7);
+    padding: 8px 0 14px;
+  }
+  .header-nav.is-open{ display:flex; }
+  .header-nav-link{
+    padding: 14px 20px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .header-nav-cta{ margin: 12px 20px 0; text-align:center; }
+  .header-burger{ display:flex; }
 }
 /* ---------- Trust bar ---------- */
 /* ===== Cinta de confianza: marquee animado encima del header ===== */
@@ -834,6 +889,19 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 .buy-countdown-sep{ color: var(--text-faint); font-weight:800; font-size:16px; }
 
+/* En desktop el countdown se coloca a un lado del precio; en mobile el
+   contenedor no lleva ningún estilo propio, así que el orden y los
+   márgenes quedan idénticos a como estaban antes (apilados, sin cambios). */
+@media (min-width: 901px){
+  .buy-price-row{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px; margin-bottom:14px;
+  }
+  .buy-price-row .buy-price-block{ margin-bottom:0; }
+  .buy-price-row .buy-unit{ margin-bottom:0; }
+  .buy-price-row .buy-countdown{ margin-bottom:0; flex:0 0 auto; }
+}
+
 .buy-actions{ display:flex; flex-direction:column; gap:10px; }
 
 /* ===== Métodos de pago, versión compacta del hero ===== */
@@ -953,6 +1021,9 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 
 /* ===== Preguntas Frecuentes: acordeón, igual en todas las páginas ===== */
+.faq-section{
+  scroll-margin-top: calc(var(--marquee-h) + var(--header-h) + 16px);
+}
 .faq-list{
   max-width: 760px; margin: 0 auto;
   display:flex; flex-direction:column; gap:12px;
