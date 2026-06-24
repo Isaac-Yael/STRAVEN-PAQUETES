@@ -25,6 +25,7 @@
   --shadow-card:   0 1px 0 rgba(255,255,255,.02) inset, 0 18px 40px -22px rgba(0,0,0,.9);
   --container:     1320px;
   --header-h:      76px;
+  --marquee-h:     40px;
   font-size: 16px;
 }
 
@@ -60,9 +61,13 @@ h1,h2,h3,h4,p{ margin:0; }
   z-index: 0;
 }
 
+/* ---------- Marquee + header: fijos juntos en la parte superior ---------- */
+.site-top-fixed{
+  position: sticky; top:0; z-index: 50;
+}
+
 /* ---------- Header ---------- */
 .site-header{
-  position: sticky; top:0; z-index: 50;
   height: var(--header-h);
   display:flex; align-items:center;
   background: rgba(10,10,10,.86);
@@ -112,6 +117,8 @@ h1,h2,h3,h4,p{ margin:0; }
 /* ---------- Trust bar ---------- */
 /* ===== Cinta de confianza: marquee animado encima del header ===== */
 .promo-marquee{
+  height: var(--marquee-h);
+  display:flex; align-items:center;
   border-bottom: 1px solid var(--border-soft);
   background: var(--bg-soft);
   overflow: hidden;
@@ -509,6 +516,10 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 .payment-method svg{ width:30px; height:30px; color: var(--green); flex:none; }
 .payment-method span{ font-size:12.5px; font-weight:700; text-align:center; line-height:1.3; color: var(--text); }
+.payment-disclaimer{
+  text-align:center; color: var(--text-faint); font-size:12px;
+  margin: 16px auto 0; max-width: 520px;
+}
 
 /* ===== Mini-sección: Envío gratis ===== */
 .shipping-mini{ text-align:center; }
@@ -600,6 +611,18 @@ h1,h2,h3,h4,p{ margin:0; }
 .carousel-arrow:hover{ border-color: var(--green); color: var(--green); }
 .carousel-arrow[disabled]{ opacity:.3; pointer-events:none; }
 
+.carousel-dots{
+  display:none;
+  justify-content:center; align-items:center;
+  gap:8px; margin: 18px auto 0;
+}
+.carousel-dot{
+  width:8px; height:8px; border-radius:50%;
+  background: var(--border); border:none; padding:0; flex:none;
+  transition: background .2s ease, transform .2s ease;
+}
+.carousel-dot.is-active{ background: var(--green); transform: scale(1.4); }
+
 @media (min-width: 901px){
   .photo-grid--scroll{
     display:flex;
@@ -688,6 +711,9 @@ h1,h2,h3,h4,p{ margin:0; }
 }
 .final-cta-actions .btn{ min-width:200px; }
 
+/* ===== CTA final: agenda tu videollamada ===== */
+.videocall-inner .btn{ min-width:240px; }
+
 @media (max-width: 480px){
   .cta-banner{ padding: 28px 18px; }
   .cta-banner .btn{ min-width:0; width:100%; }
@@ -740,7 +766,7 @@ h1,h2,h3,h4,p{ margin:0; }
 /* Buy box — sin tarjeta visual, solo agrupa el contenido */
 .buy-box{
   position: sticky;
-  top: calc(var(--header-h) + 18px);
+  top: calc(var(--marquee-h) + var(--header-h) + 18px);
 }
 .buy-eyebrow{
   display:flex; align-items:center; gap:8px;

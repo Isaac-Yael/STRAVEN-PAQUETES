@@ -16,14 +16,16 @@
 <span class="promo-marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>100% original</span>
 <span class="promo-marquee-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg>Paga a 3 meses sin intereses</span>
 {%- endmacro %}
-<div class="promo-marquee">
-  <div class="promo-marquee-track">
-    <div class="promo-marquee-set">{{ trust_msgs() }}{{ trust_msgs() }}{{ trust_msgs() }}</div>
-    <div class="promo-marquee-set" aria-hidden="true">{{ trust_msgs() }}{{ trust_msgs() }}{{ trust_msgs() }}</div>
+<div class="site-top-fixed">
+  <div class="promo-marquee">
+    <div class="promo-marquee-track">
+      <div class="promo-marquee-set">{{ trust_msgs() }}{{ trust_msgs() }}{{ trust_msgs() }}</div>
+      <div class="promo-marquee-set" aria-hidden="true">{{ trust_msgs() }}{{ trust_msgs() }}{{ trust_msgs() }}</div>
+    </div>
   </div>
-</div>
 
-{% include "header.html.j2" %}
+  {% include "header.html.j2" %}
+</div>
 
 <main>
 {% block content %}{% endblock %}

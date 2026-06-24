@@ -108,33 +108,130 @@
       }
     }
 
-    // ---- Carrusel desktop: fotografías individuales ----
-    // En mobile el track se recorre con swipe (sin flechas); en desktop
-    // las flechas avanzan/retroceden de 5 en 5 fotos.
+    // ---- Carrusel: fotografías individuales ----
+    // Avanza solo (derecha→izquierda) cada 1.5s. El usuario puede tomar el
+    // control con las flechas (desktop) o los bullets (todas las pantallas);
+    // en mobile además se puede recorrer con swipe (scroll táctil nativo).
     document.querySelectorAll(".js-carousel-track").forEach((track) => {
       const wrap = track.closest(".photo-carousel-wrap");
       if (!wrap) return;
       const prevBtn = wrap.querySelector(".js-carousel-prev");
       const nextBtn = wrap.querySelector(".js-carousel-next");
-      if (!prevBtn || !nextBtn) return;
+      const dotsWrap = wrap.parentElement.querySelector(".js-carousel-dots");
+      const tiles = Array.from(track.querySelectorAll(".photo-tile"));
+      if (!prevBtn || !nextBtn || !tiles.length) return;
 
-      function pageDistance() {
-        const tile = track.querySelector(".photo-tile");
-        if (!tile) return track.clientWidth;
+      function tileStep() {
         const gap = parseFloat(getComputedStyle(track).gap) || 0;
-        return (tile.getBoundingClientRect().width + gap) * 5;
+        return tiles[0].getBoundingClientRect().width + gap;
+      }
+      function visibleCount() {
+        const step = tileStep();
+        return step > 0 ? Math.max(1, Math.round(track.clientWidth / step)) : 1;
+      }
+      function maxScroll() {
+        return Math.max(0, track.scrollWidth - track.clientWidth - 1);
+      }
+      function pageCount() {
+        return Math.max(1, Math.ceil(tiles.length / visibleCount()));
+      }
+      function pageOf(scrollLeft) {
+        const max = maxScroll();
+        const pages = pageCount();
+        if (max <= 0 || pages <= 1) return 0;
+        return Math.min(pages - 1, Math.round((scrollLeft / max) * (pages - 1)));
       }
       function updateArrows() {
-        const max = track.scrollWidth - track.clientWidth - 1;
+        const max = maxScroll();
         prevBtn.disabled = track.scrollLeft <= 0;
-        nextBtn.disabled = max <= 0 || track.scrollLeft >= max;
+        nextBtn.disabled = max <= 0 || track.scrollLeft >= max - 1;
       }
-      prevBtn.addEventListener("click", () => track.scrollBy({ left: -pageDistance(), behavior: "smooth" }));
-      nextBtn.addEventListener("click", () => track.scrollBy({ left: pageDistance(), behavior: "smooth" }));
-      track.addEventListener("scroll", () => window.requestAnimationFrame(updateArrows));
-      window.addEventListener("resize", updateArrows);
+
+      let dots = [];
+      function updateDots() {
+        if (!dots.length) return;
+        const active = pageOf(track.scrollLeft);
+        dots.forEach((d, i) => d.classList.toggle("is-active", i === active));
+      }
+      function buildDots() {
+        if (!dotsWrap) return;
+        const pages = pageCount();
+        dotsWrap.innerHTML = "";
+        dots = [];
+        if (pages <= 1) {
+          dotsWrap.style.display = "none";
+          return;
+        }
+        dotsWrap.style.display = "flex";
+        for (let i = 0; i < pages; i++) {
+          const dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = "carousel-dot";
+          dot.setAttribute("aria-label", "Ir al grupo de fotos " + (i + 1));
+          dot.addEventListener("click", () => {
+            goToPage(i);
+            restartAutoplay();
+          });
+          dotsWrap.appendChild(dot);
+          dots.push(dot);
+        }
+        updateDots();
+      }
+
+      function goToPage(page) {
+        const pages = pageCount();
+        const wrapped = ((page % pages) + pages) % pages;
+        const max = maxScroll();
+        const target = max <= 0 ? 0 : Math.min(max, wrapped * tileStep() * visibleCount());
+        track.scrollTo({ left: target, behavior: "smooth" });
+      }
+      function step(dir) {
+        goToPage(pageOf(track.scrollLeft) + dir);
+      }
+
+      prevBtn.addEventListener("click", () => { step(-1); restartAutoplay(); });
+      nextBtn.addEventListener("click", () => { step(1); restartAutoplay(); });
+      track.addEventListener("scroll", () => window.requestAnimationFrame(() => { updateArrows(); updateDots(); }));
+      window.addEventListener("resize", () => { buildDots(); updateArrows(); });
+
+      // ---- Autoplay: avanza un grupo cada 1.5s, en bucle ----
+      let autoplayTimer = null;
+      function startAutoplay() {
+        stopAutoplay();
+        if (reduceMotion || pageCount() <= 1) return;
+        autoplayTimer = setInterval(() => {
+          const pages = pageCount();
+          const cur = pageOf(track.scrollLeft);
+          goToPage(cur + 1 >= pages ? 0 : cur + 1);
+        }, 1500);
+      }
+      function stopAutoplay() {
+        if (autoplayTimer) clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+      function restartAutoplay() {
+        startAutoplay();
+      }
+      wrap.addEventListener("mouseenter", stopAutoplay);
+      wrap.addEventListener("mouseleave", startAutoplay);
+      wrap.addEventListener("touchstart", stopAutoplay, { passive: true });
+      wrap.addEventListener("touchend", () => setTimeout(startAutoplay, 2500), { passive: true });
+
+      buildDots();
       updateArrows();
+      startAutoplay();
     });
+
+    // ---- Botón "Agendar videollamada" (CTA final) ----
+    // Mismo patrón que el botón flotante de WhatsApp: número centralizado
+    // en config.js, mensaje contextual con el nombre del paquete.
+    const videocallBtn = document.getElementById("videocall-whatsapp-btn");
+    if (videocallBtn) {
+      const cfg = window.STRAVEN_CONFIG || {};
+      const number = (cfg.whatsappNumber || "").replace(/[^\d]/g, "");
+      const msg = `Hola ${cfg.businessName || "STRAVEN"}, me gustaría agendar una videollamada para ver físicamente el paquete "${product.nombre}" antes de comprar.`;
+      videocallBtn.href = `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+    }
 
     // ---- Lightbox de fotos ----
     // Cada sección (principal / detalles / piezas individuales / foto grupal)
