@@ -8,27 +8,6 @@
     if (!productDataEl) return;
     const product = JSON.parse(productDataEl.textContent);
 
-    // ---- Cantidad ----
-    let qty = 1;
-    const qtyEls = document.querySelectorAll(".js-qty-value");
-    function renderQty() {
-      qtyEls.forEach((el) => (el.textContent = qty));
-    }
-    document.querySelectorAll(".js-qty-inc").forEach((b) => b.addEventListener("click", () => { qty++; renderQty(); }));
-    document.querySelectorAll(".js-qty-dec").forEach((b) => b.addEventListener("click", () => { if (qty > 1) qty--; renderQty(); }));
-
-    // ---- Agregar al carrito (botón secundario) ----
-    const toast = document.getElementById("added-toast");
-    document.querySelectorAll(".js-add-to-cart").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        window.StravenCart.addToCart(product, qty);
-        if (toast) {
-          toast.style.display = "block";
-          setTimeout(() => (toast.style.display = "none"), 2200);
-        }
-      });
-    });
-
     // ---- Comprar ahora (botón primario) ----
     // Intencionalmente sin acción todavía: aquí se integrará el checkout
     // con PayPal. Por ahora .js-buy-now no tiene listener. Aparece repetido
@@ -221,6 +200,20 @@
       updateArrows();
       startAutoplay();
     });
+
+    // ---- Botón "Solicitar cotización por WhatsApp" (hero + barra mobile) ----
+    // Mismo patrón que el botón flotante: número centralizado en config.js,
+    // mensaje contextual con el nombre del paquete. Puede haber más de un
+    // botón en la página (hero + barra fija de mobile); ambos comparten
+    // la misma clase y reciben el mismo link.
+    const quoteBtns = document.querySelectorAll(".js-whatsapp-quote");
+    if (quoteBtns.length) {
+      const cfg = window.STRAVEN_CONFIG || {};
+      const number = (cfg.whatsappNumber || "").replace(/[^\d]/g, "");
+      const msg = `Hola ${cfg.businessName || "STRAVEN"}, me gustaría solicitar una cotización del paquete "${product.nombre}". ¿Podrían darme más información?`;
+      const href = `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
+      quoteBtns.forEach((btn) => (btn.href = href));
+    }
 
     // ---- Botón "Agendar videollamada" (CTA final) ----
     // Mismo patrón que el botón flotante de WhatsApp: número centralizado

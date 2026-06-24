@@ -11,8 +11,8 @@ de datos, son archivos estáticos.
 
 ⚠️ ANTES DE PUBLICARLO: configura tu WhatsApp
 -----------------------------------------------
-El botón "Enviar pedido por WhatsApp" usa un NÚMERO DE EJEMPLO.
-Ábrelo y cámbialo:
+Los botones de WhatsApp del sitio (flotante, "Solicitar cotización" y
+"Agendar videollamada") usan un NÚMERO DE EJEMPLO. Ábrelo y cámbialo:
 
   Archivo:  js/config.js
   Línea:    whatsappNumber: "521234567890"
@@ -65,9 +65,9 @@ index.html              -> Home del catálogo (generado, no editar a mano)
 productos/*.html         -> Una página por paquete (generado, no editar a mano)
 css/styles.css           -> Todo el diseño visual del sitio
 js/config.js             -> Número de WhatsApp y datos del negocio
-js/cart.js                -> Lógica del carrito (localStorage + WhatsApp)
+js/cart.js                -> Formato de precios + botón flotante de WhatsApp
 js/main.js                -> Filtros de categoría en el home
-js/product.js             -> Galería de fotos/video y "Agregar al carrito"
+js/product.js             -> Galería de fotos/video, carrusel y botones de WhatsApp
 img/                      -> Logos de STRAVEN + carpeta PAQUETES con todo
                              el material de cada paquete + el CSV maestro
 _generador/                -> El "motor" que construye el sitio a partir
