@@ -472,6 +472,10 @@ main{
 }
 .story-title{ font-size: clamp(22px, 3.2vw, 30px); font-weight:800; line-height:1.25; margin-bottom:10px; }
 .story-sub{ color: var(--text-dim); font-size:15px; }
+.gallery-disclaimer{
+  color: var(--text-faint); font-size:11.5px; line-height:1.35;
+  margin-top:6px;
+}
 
 /* ===== Galería (individuales / detalles / video): acordeón ===== */
 .gallery-accordion-section{ padding: 0; border-top: 1px solid var(--border-soft); }

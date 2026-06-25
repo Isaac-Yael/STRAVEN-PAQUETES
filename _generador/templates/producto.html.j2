@@ -172,7 +172,18 @@
       <div class="story-head-text">
         <div class="story-eyebrow">{{ sec.eyebrow }}</div>
         <h2 class="story-title">{{ sec.title }}</h2>
+        {% if sec.key == "individuales" and (p.presentaciones_txt or p.tallas_txt) %}
+        <p class="story-sub">
+          {%- if p.presentaciones_txt -%}Presentaciones: {{ p.presentaciones_txt }}{%- endif -%}
+          {%- if p.presentaciones_txt and p.tallas_txt %} · {% endif -%}
+          {%- if p.tallas_txt -%}Tallas / variantes: {{ p.tallas_txt }}{%- endif -%}
+        </p>
+        {% else %}
         <p class="story-sub">{{ sec.subtitle }}</p>
+        {% endif %}
+        {% if sec.key == "individuales" %}
+        <p class="gallery-disclaimer">{{ sec.subtitle }}</p>
+        {% endif %}
       </div>
       <svg class="gallery-accordion-chevron" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
     </div>

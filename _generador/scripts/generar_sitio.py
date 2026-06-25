@@ -53,7 +53,7 @@ SECTION_META = {
     "individuales": (
         "CONTENIDO DEL PAQUETE",
         "Productos de alta rotación en tu paquete",
-        "Fotografías ilustrativas que te muestran algo de lo que podrían venir en tu paquete.",
+        "Las imágenes son ilustrativas. Muestran parte del inventario disponible, pero no representan el contenido exacto de tu paquete.",
     ),
     "video": (
         "PRUEBA EN VIDEO",
@@ -259,7 +259,9 @@ def load_products():
                 "meta_desc": meta_desc,
                 "marcas": marcas,
                 "presentaciones": presentaciones,
+                "presentaciones_txt": ", ".join(presentaciones),
                 "tallas": tallas,
+                "tallas_txt": ", ".join(tallas),
                 "peso": row.get("Peso", "").strip(),
                 "medidas": medidas_fmt,
                 "extras": extras,
