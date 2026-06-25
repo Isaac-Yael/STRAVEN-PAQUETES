@@ -166,38 +166,47 @@
 
 <!-- ===== SECCIONES NARRATIVAS: fotos individuales, detalles y video — aparecen al hacer scroll, justo después de "Crece tus Ganancias" ===== -->
 {% for sec in p.gallery_sections %}
-<div class="story-section">
+<div class="story-section gallery-accordion-section">
   <div class="container">
-    <div class="story-head reveal">
-      <div class="story-eyebrow">{{ sec.eyebrow }}</div>
-      <h2 class="story-title">{{ sec.title }}</h2>
-      <p class="story-sub">{{ sec.subtitle }}</p>
+    <div class="story-head reveal js-gallery-toggle{% if loop.first %} is-open{% endif %}" role="button" tabindex="0" aria-expanded="{{ 'true' if loop.first else 'false' }}" aria-controls="gallery-panel-{{ loop.index }}">
+      <div class="story-head-text">
+        <div class="story-eyebrow">{{ sec.eyebrow }}</div>
+        <h2 class="story-title">{{ sec.title }}</h2>
+        <p class="story-sub">{{ sec.subtitle }}</p>
+      </div>
+      <svg class="gallery-accordion-chevron" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
     </div>
 
-    {% if sec.key == "video" %}
-    <div class="video-frame reveal">
-      <video controls playsinline {% if sec.fotos[0].poster %}poster="{{ sec.fotos[0].poster }}"{% endif %}>
-        <source src="{{ sec.fotos[0].src }}">
-      </video>
-    </div>
-    {% else %}
-    <div class="photo-carousel-wrap">
-      <button type="button" class="carousel-arrow js-carousel-prev" aria-label="Ver fotos anteriores" disabled>
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
-      </button>
-      <div class="photo-grid photo-grid--scroll js-carousel-track">
-        {% for it in sec.fotos %}
-        <button type="button" class="photo-tile js-lightbox-img reveal" data-group="{{ sec.key }}" style="transition-delay:{{ (loop.index0 % 6) * 70 }}ms">
-          <img src="{{ it.src }}" alt="{{ p.nombre }} — {{ sec.title }}" loading="lazy">
-        </button>
-        {% endfor %}
+    <div class="gallery-accordion-panel{% if loop.first %} is-open{% endif %}" id="gallery-panel-{{ loop.index }}">
+      <div class="gallery-accordion-inner">
+
+        {% if sec.key == "video" %}
+        <div class="video-frame reveal">
+          <video controls playsinline {% if sec.fotos[0].poster %}poster="{{ sec.fotos[0].poster }}"{% endif %}>
+            <source src="{{ sec.fotos[0].src }}">
+          </video>
+        </div>
+        {% else %}
+        <div class="photo-carousel-wrap">
+          <button type="button" class="carousel-arrow js-carousel-prev" aria-label="Ver fotos anteriores" disabled>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="photo-grid photo-grid--scroll js-carousel-track">
+            {% for it in sec.fotos %}
+            <button type="button" class="photo-tile js-lightbox-img reveal" data-group="{{ sec.key }}" style="transition-delay:{{ (loop.index0 % 6) * 70 }}ms">
+              <img src="{{ it.src }}" alt="{{ p.nombre }} — {{ sec.title }}" loading="lazy">
+            </button>
+            {% endfor %}
+          </div>
+          <button type="button" class="carousel-arrow js-carousel-next" aria-label="Ver más fotos">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+        <div class="carousel-dots js-carousel-dots" role="tablist" aria-label="Navegación del carrusel de fotos"></div>
+        {% endif %}
+
       </div>
-      <button type="button" class="carousel-arrow js-carousel-next" aria-label="Ver más fotos">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 18l6-6-6-6"/></svg>
-      </button>
     </div>
-    <div class="carousel-dots js-carousel-dots" role="tablist" aria-label="Navegación del carrusel de fotos"></div>
-    {% endif %}
   </div>
 </div>
 

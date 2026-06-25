@@ -81,5 +81,65 @@
         }
       });
     });
+
+    // ---- Galería (Productos individuales / Detalles / Video): acordeón ----
+    // Cada encabezado funciona como botón desplegable; solo una sección
+    // de galería permanece abierta a la vez. El contenido interno (fotos,
+    // carrusel, video) no se modifica, solo se muestra u oculta.
+    const galleryToggles = Array.from(document.querySelectorAll(".js-gallery-toggle"));
+    if (galleryToggles.length) {
+      const panelFor = (toggle) => {
+        const id = toggle.getAttribute("aria-controls");
+        return id ? document.getElementById(id) : null;
+      };
+
+      const closeToggle = (toggle) => {
+        const panel = panelFor(toggle);
+        toggle.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        if (panel) {
+          panel.classList.remove("is-open");
+          panel.style.maxHeight = null;
+        }
+      };
+
+      const openToggle = (toggle) => {
+        const panel = panelFor(toggle);
+        toggle.classList.add("is-open");
+        toggle.setAttribute("aria-expanded", "true");
+        if (panel) {
+          panel.classList.add("is-open");
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      };
+
+      const activateToggle = (toggle) => {
+        const isOpen = toggle.classList.contains("is-open");
+        galleryToggles.forEach((other) => {
+          if (other !== toggle) closeToggle(other);
+        });
+        if (isOpen) closeToggle(toggle); else openToggle(toggle);
+      };
+
+      galleryToggles.forEach((toggle) => {
+        toggle.addEventListener("click", () => activateToggle(toggle));
+        toggle.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+            e.preventDefault();
+            activateToggle(toggle);
+          }
+        });
+
+        if (toggle.classList.contains("is-open")) {
+          openToggle(toggle);
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        document.querySelectorAll(".gallery-accordion-panel.is-open").forEach((panel) => {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        });
+      });
+    }
   });
 })();

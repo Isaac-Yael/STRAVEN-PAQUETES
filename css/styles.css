@@ -470,6 +470,25 @@ main{
 .story-title{ font-size: clamp(22px, 3.2vw, 30px); font-weight:800; line-height:1.25; margin-bottom:10px; }
 .story-sub{ color: var(--text-dim); font-size:15px; }
 
+/* ===== Galería (individuales / detalles / video): acordeón ===== */
+.gallery-accordion-section{ padding: 0; border-top: 1px solid var(--border-soft); }
+.gallery-accordion-section .container{ padding-top: 32px; padding-bottom: 32px; }
+.story-head.js-gallery-toggle{
+  display:flex; align-items:center; justify-content:space-between; gap:18px;
+  max-width: none; margin: 0 0 18px; text-align:left;
+  cursor:pointer; -webkit-tap-highlight-color: transparent;
+}
+.story-head.js-gallery-toggle .story-head-text{ max-width:640px; }
+.gallery-accordion-chevron{ flex:none; color: var(--green); transition: transform .3s ease; }
+.story-head.js-gallery-toggle.is-open .gallery-accordion-chevron{ transform: rotate(180deg); }
+.gallery-accordion-panel{
+  max-height:0; overflow:hidden;
+  transition: max-height .4s cubic-bezier(.16,.84,.44,1);
+}
+@media (max-width: 600px){
+  .story-head.js-gallery-toggle{ align-items:flex-start; }
+}
+
 /* ===== Crece tus Ganancias: tabla comparativa de rentabilidad ===== */
 .profit-section{ background: var(--bg-soft); }
 .profit-grid{
@@ -722,7 +741,7 @@ main{
 /* ===== Testimonios: capturas de clientes — el alto de cada tarjeta se
    ajusta exactamente a la imagen (ancho fijo, alto automático), así nunca
    queda fondo blanco/vacío alrededor de la captura. ===== */
-.testimonials-grid{ align-items: flex-start; }
+.testimonials-grid{ align-items: center; }
 .testimonials-grid .testimonial-tile{
   aspect-ratio: unset;
   height: auto;
@@ -850,6 +869,22 @@ main{
   display:flex; align-items:center; gap:8px;
   color: var(--green); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
   margin-bottom: 10px;
+  animation: buy-eyebrow-glow 2.4s ease-in-out infinite;
+}
+.buy-eyebrow svg{
+  flex: none;
+  animation: buy-eyebrow-glow-icon 2.4s ease-in-out infinite;
+}
+@keyframes buy-eyebrow-glow{
+  0%, 100%{ text-shadow: 0 0 0 rgba(166,255,26,0); }
+  50%{ text-shadow: 0 0 8px rgba(166,255,26,.85), 0 0 18px rgba(166,255,26,.45); }
+}
+@keyframes buy-eyebrow-glow-icon{
+  0%, 100%{ filter: drop-shadow(0 0 0 rgba(166,255,26,0)); }
+  50%{ filter: drop-shadow(0 0 5px rgba(166,255,26,.9)); }
+}
+@media (prefers-reduced-motion: reduce){
+  .buy-eyebrow, .buy-eyebrow svg{ animation: none; }
 }
 .buy-title{ font-size: clamp(30px,4.4vw,46px); font-weight:800; margin-bottom:14px; line-height:1.15; }
 
