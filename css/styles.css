@@ -689,6 +689,22 @@ main{
   display:flex; align-items:center; gap:12px;
   max-width: 1040px; margin: 0 auto;
 }
+/* Dentro del acordeón de galería, el carrusel ocupa el mismo ancho que el
+   botón que despliega la sección (sin el max-width centrado de 1040px). */
+.gallery-accordion-inner .photo-carousel-wrap{ max-width: none; }
+
+/* Degradado en los laterales: las fotos se desvanecen hacia el fondo en
+   vez de cortarse de golpe en el límite del carrusel al desplazarse. */
+.photo-grid--scroll{
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+}
+@media (max-width: 900px){
+  .photo-grid--scroll{
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 24px, #000 calc(100% - 24px), transparent 100%);
+  }
+}
 .carousel-arrow{
   flex: 0 0 auto;
   width:44px; height:44px; border-radius:50%;
