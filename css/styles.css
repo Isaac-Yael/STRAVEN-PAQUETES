@@ -438,6 +438,9 @@ main{
   0%, 100%{ transform: translateY(0); }
   50%{ transform: translateY(6px); }
 }
+@media (min-width: 901px){
+  .scroll-hint{ align-items: flex-start; text-align: left; }
+}
 
 .story-section{
   padding: 56px 0;
@@ -948,6 +951,8 @@ main{
   .buy-price-row .buy-unit{ margin-bottom:4px; }
   .buy-price-row .buy-disclaimer-mini{ margin-bottom:0; }
   .buy-price-row .buy-countdown{ margin-bottom:0; flex:0 0 auto; }
+  .buy-price-row .buy-countdown-label{ justify-content: center; text-align:center; }
+  .buy-price-row .buy-countdown-timer{ justify-content: center; }
 }
 
 .buy-actions{ display:flex; flex-direction:column; gap:10px; }
