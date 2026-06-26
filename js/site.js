@@ -141,5 +141,61 @@
         });
       });
     }
+
+    // ---- Acordeón genérico (Ficha técnica, Descripción, FAQ completo) ----
+    // Cada sección se abre/cierra de forma independiente: a diferencia de la
+    // galería, aquí no hay límite de "solo una abierta a la vez". El panel de
+    // FAQ además contiene su propio acordeón de preguntas, así que una vez
+    // abierto se quita el límite de alto (max-height:none) para que una
+    // pregunta pueda desplegarse sin que el panel exterior la recorte.
+    const sectionToggles = Array.from(document.querySelectorAll(".js-section-toggle"));
+    if (sectionToggles.length) {
+      const panelFor = (toggle) => {
+        const id = toggle.getAttribute("aria-controls");
+        return id ? document.getElementById(id) : null;
+      };
+
+      const setOpen = (toggle, open) => {
+        const panel = panelFor(toggle);
+        toggle.classList.toggle("is-open", open);
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        if (!panel) return;
+        panel.classList.toggle("is-open", open);
+
+        if (open) {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+          const onEnd = (e) => {
+            if (e.propertyName === "max-height") {
+              if (panel.classList.contains("is-open")) panel.style.maxHeight = "none";
+              panel.removeEventListener("transitionend", onEnd);
+            }
+          };
+          panel.addEventListener("transitionend", onEnd);
+        } else {
+          // si ya estaba en "none", primero se fija el alto real para
+          // poder animar el cierre con una transición de max-height
+          panel.style.maxHeight = panel.scrollHeight + "px";
+          requestAnimationFrame(() => { panel.style.maxHeight = "0px"; });
+        }
+      };
+
+      sectionToggles.forEach((toggle) => {
+        toggle.addEventListener("click", () => setOpen(toggle, !toggle.classList.contains("is-open")));
+        toggle.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+            e.preventDefault();
+            setOpen(toggle, !toggle.classList.contains("is-open"));
+          }
+        });
+
+        if (toggle.classList.contains("is-open")) setOpen(toggle, true);
+      });
+
+      window.addEventListener("resize", () => {
+        document.querySelectorAll(".accordion-panel.is-open").forEach((panel) => {
+          if (panel.style.maxHeight !== "none") panel.style.maxHeight = panel.scrollHeight + "px";
+        });
+      });
+    }
   });
 })();

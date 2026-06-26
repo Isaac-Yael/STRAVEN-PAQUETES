@@ -477,10 +477,11 @@ main{
   margin-top:6px;
 }
 
-/* ===== Galería (individuales / detalles / video): acordeón ===== */
-.gallery-accordion-section{ padding: 0; border-top: 1px solid var(--border-soft); }
-.gallery-accordion-section .container{ padding-top: 32px; padding-bottom: 32px; }
-.story-head.js-gallery-toggle{
+/* ===== Galería (individuales / detalles / video) y demás secciones en
+   acordeón (ficha técnica, descripción, preguntas frecuentes) ===== */
+.gallery-accordion-section, .accordion-section{ padding: 0; border-top: 1px solid var(--border-soft); }
+.gallery-accordion-section .container, .accordion-section .container{ padding-top: 32px; padding-bottom: 32px; }
+.story-head.js-gallery-toggle, .story-head.js-section-toggle{
   display:flex; align-items:center; justify-content:space-between; gap:18px;
   max-width: none; margin: 0 0 18px; text-align:left;
   cursor:pointer; -webkit-tap-highlight-color: transparent;
@@ -491,12 +492,15 @@ main{
   transition: background .25s ease, border-color .25s ease;
 }
 .story-head.js-gallery-toggle:hover,
-.story-head.js-gallery-toggle:focus-visible{
+.story-head.js-gallery-toggle:focus-visible,
+.story-head.js-section-toggle:hover,
+.story-head.js-section-toggle:focus-visible{
   background: var(--bg-elev-2);
   border-color: var(--green);
 }
-.story-head.js-gallery-toggle .story-head-text{ max-width:640px; }
-.gallery-accordion-chevron{
+.story-head.js-gallery-toggle .story-head-text,
+.story-head.js-section-toggle .story-head-text{ max-width:640px; }
+.gallery-accordion-chevron, .accordion-chevron{
   flex:none; color: var(--green); transition: transform .3s ease, background .25s ease;
   box-sizing: content-box;
   padding: 7px;
@@ -504,16 +508,19 @@ main{
   background: var(--green-glow);
 }
 .story-head.js-gallery-toggle:hover .gallery-accordion-chevron,
-.story-head.js-gallery-toggle:focus-visible .gallery-accordion-chevron{
+.story-head.js-gallery-toggle:focus-visible .gallery-accordion-chevron,
+.story-head.js-section-toggle:hover .accordion-chevron,
+.story-head.js-section-toggle:focus-visible .accordion-chevron{
   background: rgba(166,255,26,.32);
 }
-.story-head.js-gallery-toggle.is-open .gallery-accordion-chevron{ transform: rotate(180deg); }
-.gallery-accordion-panel{
+.story-head.js-gallery-toggle.is-open .gallery-accordion-chevron,
+.story-head.js-section-toggle.is-open .accordion-chevron{ transform: rotate(180deg); }
+.gallery-accordion-panel, .accordion-panel{
   max-height:0; overflow:hidden;
   transition: max-height .4s cubic-bezier(.16,.84,.44,1);
 }
 @media (max-width: 600px){
-  .story-head.js-gallery-toggle{ align-items:flex-start; }
+  .story-head.js-gallery-toggle, .story-head.js-section-toggle{ align-items:flex-start; }
 }
 
 /* ===== Crece tus Ganancias: tabla comparativa de rentabilidad ===== */
