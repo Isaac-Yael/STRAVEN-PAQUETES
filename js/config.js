@@ -16,4 +16,14 @@ window.STRAVEN_CONFIG = {
 
   businessName: "STRAVEN",
   currency: "MXN",
+
+  // Datos de la cuenta para pagos por transferencia (popup de checkout).
+  // % de descuento que se le ofrece al cliente por pagar por transferencia.
+  bankTransfer: {
+    bank: "BBVA",
+    beneficiary: "GRUPO VENGMONT",
+    clabe: "012470001154425912",
+    account: "0115442591",
+  },
+  transferDiscountPct: 0.03,
 };

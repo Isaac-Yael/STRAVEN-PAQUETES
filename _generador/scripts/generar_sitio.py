@@ -161,6 +161,7 @@ def load_products():
             venta_unit = row.get("Lo vendes en", "").strip()
             ganancia_unit = row.get("Le ganas", "").strip()
             ganancia_paquete = row.get("Ganancia por paquete", "").strip()
+            link_pago = row.get("Link de pago", "").strip()
 
             base_dir = os.path.join(PAQUETES_DIR, carpeta)
 
@@ -255,6 +256,7 @@ def load_products():
                 "ganancia_unit_num": parse_money(ganancia_unit),
                 "ganancia_paquete": ganancia_paquete,
                 "ganancia_paquete_num": parse_money(ganancia_paquete),
+                "link_pago": link_pago,
                 "descripcion": row.get("Descripción", "").strip(),
                 "meta_desc": meta_desc,
                 "marcas": marcas,
@@ -386,6 +388,7 @@ def main():
             "precioStr": p["precio_total"],
             "categoria": p["categoria"],
             "pzas": p["pzas"],
+            "linkPago": p["link_pago"],
         }, ensure_ascii=False)
 
         html = producto_tpl.render(
