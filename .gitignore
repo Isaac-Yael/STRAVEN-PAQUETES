@@ -1,2 +1,8 @@
 .DS_Store
 _test_write.txt
+
+# Carpetas de fotos/video crudos sin procesar (export directo de cámara/Fotos).
+# No las usa el generador del sitio y pueden pesar varios GB — solo inflan el
+# repo y rompen el push por el límite de tamaño de archivo de GitHub (100MB).
+img/PAQUETES/*/Paquete Reebok/
+img/PAQUETES/*/JPEG/
