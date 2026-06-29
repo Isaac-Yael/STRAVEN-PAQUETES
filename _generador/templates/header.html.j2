@@ -6,8 +6,12 @@
 
     <div class="header-right">
       <nav class="header-nav" id="header-nav">
-        <a href="#faq" class="header-nav-link">Preguntas Frecuentes</a>
+        <a href="{{ faq_href|default('#faq') }}" class="header-nav-link">Preguntas Frecuentes</a>
+        {% if is_home %}
+        <a href="{{ asset_prefix }}catalogo.html" class="btn btn-secondary header-nav-cta">Catálogo</a>
+        {% else %}
         <a href="{{ asset_prefix }}index.html" class="btn btn-secondary header-nav-cta">Más paquetes</a>
+        {% endif %}
       </nav>
 
       <button type="button" class="header-burger js-header-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="header-nav">

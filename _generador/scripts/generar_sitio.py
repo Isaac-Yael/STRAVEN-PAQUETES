@@ -36,6 +36,8 @@ PLACEHOLDER_IMG = "img/placeholder.svg"
 # Carpeta global (no por paquete) con capturas de pantalla de testimonios
 # de clientes reales — se muestran igual en todas las páginas de producto.
 TESTIMONIOS_DIR = os.path.join(ROOT, "img", "testimonios")
+# Carpeta con el PDF del catálogo completo, descargable desde catalogo.html.
+CATALOGO_DIR = os.path.join(ROOT, "catalogo")
 
 IMG_EXTS = (".jpg", ".jpeg", ".png", ".webp")
 VIDEO_EXTS = (".mp4", ".mov", ".webm")
@@ -363,6 +365,7 @@ def main():
     index_tpl = env.get_template("index.html.j2")
     index_html = index_tpl.render(
         asset_prefix="",
+        is_home=True,
         categories=index_categories,
         products=index_products,
         testimonios=prefix_paths(testimonios_base, ""),
@@ -371,6 +374,26 @@ def main():
     )
     with open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8") as f:
         f.write(index_html)
+
+    # ---- catalogo.html (prefix "" : está en la raíz) ----
+    # Página de propósito único: descargar el PDF del catálogo completo.
+    # Sin FAQ ni distracciones — esa es su única función.
+    catalogo_pdfs = list_assets(CATALOGO_DIR, (".pdf",)) if os.path.isdir(CATALOGO_DIR) else []
+    if catalogo_pdfs:
+        catalogo_tpl = env.get_template("catalogo.html.j2")
+        catalogo_html = catalogo_tpl.render(
+            asset_prefix="",
+            is_home=False,
+            faq_href="index.html#faq",
+            catalogo_pdf=catalogo_pdfs[0],
+            catalogo_fecha="25 de junio de 2026",
+            year=year,
+            page_title="Descargar Catálogo — STRAVEN Mayoreo",
+        )
+        with open(os.path.join(ROOT, "catalogo.html"), "w", encoding="utf-8") as f:
+            f.write(catalogo_html)
+    else:
+        print("AVISO: no se encontró ningún PDF en catalogo/, no se generó catalogo.html.")
 
     # ---- productos/<slug>.html (prefix "../") ----
     os.makedirs(PRODUCTOS_OUT_DIR, exist_ok=True)
@@ -393,6 +416,7 @@ def main():
 
         html = producto_tpl.render(
             asset_prefix="../",
+            is_home=False,
             p=view,
             product_json=product_json,
             year=year,

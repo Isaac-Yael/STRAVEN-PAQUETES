@@ -1,0 +1,22 @@
+{% extends "base.html.j2" %}
+{% block meta_desc %}Descarga el catálogo completo de paquetes de mercancía 100% original al mayoreo: marcas, modelos, cantidades y precios en un solo PDF.{% endblock %}
+{% block body_class %}page-catalogo{% endblock %}
+{% block content %}
+<div class="story-section catalog-section">
+  <div class="container">
+    <div class="catalog-hero reveal">
+      <div class="story-eyebrow">STRAVEN · MAYOREO</div>
+      <h1 class="story-title catalog-hero-title">Catálogo completo de paquetes al mayoreo</h1>
+      <p class="story-sub catalog-hero-sub">Marcas, modelos, cantidades y precios de todos los paquetes disponibles, reunidos en un solo PDF listo para descargar.</p>
+
+      <a href="{{ asset_prefix }}catalogo/{{ catalogo_pdf }}" download="Catalogo-STRAVEN-Mayoreo.pdf" class="btn btn-primary catalog-download-btn">
+        <span>Descargar catálogo en PDF</span>
+        <svg class="catalog-download-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 19h16"/></svg>
+      </a>
+
+      <p class="catalog-hero-note">PDF · actualizado al {{ catalogo_fecha }} · Mercancía 100% original</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block faq %}{% endblock %}

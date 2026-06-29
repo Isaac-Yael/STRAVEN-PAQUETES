@@ -29,7 +29,7 @@
 
 <main>
 {% block content %}{% endblock %}
-{% include "faq.html.j2" %}
+{% block faq %}{% include "faq.html.j2" %}{% endblock %}
 </main>
 
 {% include "footer.html.j2" %}
