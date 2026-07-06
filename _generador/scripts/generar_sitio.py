@@ -386,7 +386,7 @@ def main():
             is_home=False,
             faq_href="index.html#faq",
             catalogo_pdf=catalogo_pdfs[0],
-            catalogo_fecha="25 de junio de 2026",
+            catalogo_fecha="6 de julio de 2026",
             year=year,
             page_title="Descargar Catálogo — STRAVEN Mayoreo",
         )
