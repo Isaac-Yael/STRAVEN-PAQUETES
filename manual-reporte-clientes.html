@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Manual GoHighLevel — STRAVEN Equipo Interno</title>
+<title>Manual — Reporte de Clientes — STRAVEN Equipo Interno</title>
 <style>
 /* ===== DESIGN TOKENS (replicados del sistema STRAVEN) ===== */
 :root{
@@ -406,18 +406,6 @@ img{ max-width:100%; display:block; }
 }
 .alert-star .alert-icon::after{ content:"⭐"; }
 
-/* Clock indicators */
-.clock-row{
-  display:flex; gap:12px; flex-wrap:wrap; margin:14px 0;
-}
-.clock-item{
-  display:flex; align-items:center; gap:8px;
-  padding:10px 14px; border-radius:var(--radius-sm);
-  font-size:13.5px; font-weight:600; flex:1; min-width:200px;
-}
-.clock-orange{ background:rgba(255,140,0,.1); border:1px solid rgba(255,140,0,.3); color:#ffab40; }
-.clock-red{ background:rgba(255,60,60,.1); border:1px solid rgba(255,60,60,.3); color:#ff7070; }
-
 /* Table */
 .manual-table-wrap{ overflow-x:auto; margin:18px 0; }
 .manual-table{
@@ -485,8 +473,6 @@ img{ max-width:100%; display:block; }
   .content{ margin-left:0; }
   .content-inner{ padding:24px 20px 80px; }
   .topbar{ display:flex; }
-  .clock-row{ flex-direction:column; }
-  .clock-item{ min-width:0; }
   .manual-table td, .manual-table th{ padding:9px 10px; }
 }
 @media(max-width:480px){
@@ -531,11 +517,11 @@ img{ max-width:100%; display:block; }
       </div>
       <div class="manual-switcher">
         <div class="switcher-label">Manuales</div>
-        <a class="switcher-tab active" href="manual.html">
+        <a class="switcher-tab" href="manual.html">
           <span class="switcher-tab-icon">1</span>
           <span class="switcher-tab-text">GoHighLevel<br><span class="switcher-tab-sub">Ventas y atención al cliente</span></span>
         </a>
-        <a class="switcher-tab" href="manual-reporte-clientes.html">
+        <a class="switcher-tab active" href="manual-reporte-clientes.html">
           <span class="switcher-tab-icon">2</span>
           <span class="switcher-tab-text">Reporte de clientes<br><span class="switcher-tab-sub">Compras por cantidad de productos</span></span>
         </a>
@@ -549,30 +535,22 @@ img{ max-width:100%; display:block; }
       <div class="nav-link" onclick="navTo('intro')">Introducción</div>
       <div class="nav-sep"></div>
       <div class="nav-section-label">Sección 1</div>
-      <div class="nav-link section-head" onclick="navTo('s1')">Atención de Leads Nuevos</div>
-      <div class="nav-link sub" onclick="navTo('s1-1')">1.1 · Cómo empieza la conversación</div>
-      <div class="nav-link sub" onclick="navTo('s1-2')">1.2 · Señales de intervenir</div>
-      <div class="nav-link sub" onclick="navTo('s1-3')">1.3 · Camino A — Detectas tú</div>
-      <div class="nav-link sub" onclick="navTo('s1-4')">1.4 · Camino B — Detecta el bot</div>
-      <div class="nav-link sub" onclick="navTo('s1-5')">1.5 · Reactivar el bot</div>
-      <div class="nav-link sub" onclick="navTo('s1-6')">1.6 · Reloj de conversaciones (SLA)</div>
-      <div class="nav-link sub" onclick="navTo('s1-7')">1.7 · Regla de oro</div>
+      <div class="nav-link section-head" onclick="navTo('s1')">Ubicar y filtrar las órdenes</div>
+      <div class="nav-link sub" onclick="navTo('s1-1')">1.1 · Entrar a Ventas → Órdenes</div>
+      <div class="nav-link sub" onclick="navTo('s1-2')">1.2 · Filtrar por categoría STRAVEN</div>
+      <div class="nav-link sub" onclick="navTo('s1-3')">1.3 · Filtrar por monto total</div>
       <div class="nav-sep"></div>
       <div class="nav-section-label">Sección 2</div>
-      <div class="nav-link section-head" onclick="navTo('s2')">Gestión de Leads Interesados</div>
-      <div class="nav-link sub" onclick="navTo('s2-1')">2.1 · Qué significa "Interesado"</div>
-      <div class="nav-link sub" onclick="navTo('s2-2')">2.2 · Tu objetivo</div>
-      <div class="nav-link sub" onclick="navTo('s2-3')">2.3 · Escenario A — Quiere cotizar</div>
-      <div class="nav-link sub" onclick="navTo('s2-4')">2.4 · Escenario B — Se enfría</div>
-      <div class="nav-link sub" onclick="navTo('s2-5')">2.5 · Qué pasa en "Indeciso"</div>
+      <div class="nav-link section-head" onclick="navTo('s2')">Exportar el listado</div>
+      <div class="nav-link sub" onclick="navTo('s2-1')">2.1 · Seleccionar todas las órdenes</div>
+      <div class="nav-link sub" onclick="navTo('s2-2')">2.2 · Exportar desde Acciones</div>
+      <div class="nav-link sub" onclick="navTo('s2-3')">2.3 · Elegir plantilla y formato</div>
       <div class="nav-sep"></div>
       <div class="nav-section-label">Sección 3</div>
-      <div class="nav-link section-head" onclick="navTo('s3')">Cierre de Venta y Cotizaciones</div>
-      <div class="nav-link sub" onclick="navTo('s3-1')">3.1 · Rol del agente de ventas</div>
-      <div class="nav-link sub" onclick="navTo('s3-2')">3.2 · Escenario A — Venta exitosa</div>
-      <div class="nav-link sub" onclick="navTo('s3-3')">3.3 · Escenario B — No se concreta</div>
-      <div class="nav-link sub" onclick="navTo('s3-4')">3.4 · Indeciso con tag "Cotizado"</div>
-      <div class="nav-link sub" onclick="navTo('s3-5')">3.5 · Reactivación espontánea</div>
+      <div class="nav-link section-head" onclick="navTo('s3')">Generar el reporte final</div>
+      <div class="nav-link sub" onclick="navTo('s3-1')">3.1 · Qué trae el archivo XLSX</div>
+      <div class="nav-link sub" onclick="navTo('s3-2')">3.2 · Armar la tabla dinámica</div>
+      <div class="nav-link sub" onclick="navTo('s3-3')">3.3 · Cómo leer el resultado</div>
     </div>
   </nav>
 
@@ -583,7 +561,7 @@ img{ max-width:100%; display:block; }
       <button class="burger" id="burger-btn" onclick="toggleSidebar()" aria-label="Menú">
         <span></span><span></span><span></span>
       </button>
-      <div class="topbar-title">Manual GoHighLevel</div>
+      <div class="topbar-title">Reporte de Clientes</div>
     </div>
 
     <div class="content-inner" id="content-inner">
@@ -591,8 +569,8 @@ img{ max-width:100%; display:block; }
       <!-- INTRO -->
       <div id="intro" class="manual-intro" data-searchable>
         <div class="manual-eyebrow">STRAVEN · Uso Interno</div>
-        <h1 class="manual-main-title">Manual de Usuario — GoHighLevel para el Equipo de Ventas y Atención al Cliente</h1>
-        <p class="manual-intro-sub">Este manual explica los procesos de GoHighLevel en los que participan directamente las agentes de atención al cliente y las vendedoras. No cubre toda la plataforma, solo lo que necesitas saber para hacer bien tu trabajo día a día.</p>
+        <h1 class="manual-main-title">Cómo generar un reporte de clientes que han comprado una cantidad determinada de productos de STRAVEN</h1>
+        <p class="manual-intro-sub">Esta guía explica, paso a paso, cómo usar Odoo para identificar qué clientes han comprado productos de STRAVEN, cuántas veces le han comprado (en tienda física y por vendedora) y filtrar ese listado por monto de compra. Es la herramienta base para armar campañas de recompra, identificar clientes frecuentes y medir el comportamiento de compra al mayoreo.</p>
       </div>
 
       <!-- NO RESULTS -->
@@ -603,83 +581,52 @@ img{ max-width:100%; display:block; }
         <div class="section-header">
           <div class="section-number">1</div>
           <div>
-            <div class="section-title-text">Atención de Leads Nuevos</div>
-            <div class="section-tag">Bot IA + Intervención Humana</div>
+            <div class="section-title-text">Ubicar y filtrar las órdenes</div>
+            <div class="section-tag">Odoo · Módulo de Ventas</div>
           </div>
         </div>
 
         <!-- 1.1 -->
         <div id="s1-1" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">1.1</span>Cómo empieza la conversación</div>
-          <p class="body-text">Cuando un cliente escribe por primera vez (por cualquier canal: WhatsApp, SMS, webchat, etc.), lo atiende automáticamente un <strong>bot de inteligencia artificial</strong>. El bot resuelve dudas simples y mantiene la conversación, pero no es perfecto — puede dar respuestas torpes o poco naturales.</p>
-          <div class="alert alert-note">
-            <div class="alert-icon"></div>
-            <div class="alert-body">Todo agente de atención al cliente debe <strong>monitorear constantemente</strong> las conversaciones que el bot está manejando, no solo las propias.</div>
-          </div>
+          <div class="subsection-title"><span class="subsection-num">1.1</span>Entra a Ventas → Órdenes</div>
+          <p class="body-text">Entra al apartado de <strong>VENTAS</strong> en Odoo y posiciónate en <strong>ÓRDENES</strong> con la vista de <strong>"Lista"</strong>. Desde ahí vas a construir el filtro que te va a dar el listado base para el reporte.</p>
         </div>
 
         <!-- 1.2 -->
         <div id="s1-2" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">1.2</span>Señales de que hay que intervenir</div>
-          <p class="body-text">Debes prestar atención cuando el cliente muestra señales de:</p>
-          <ul class="bullets">
-            <li>Querer comprar</li>
-            <li>Pedir una cotización</li>
-            <li>Querer visitar la tienda físicamente</li>
-            <li>Cualquier otro indicio claro de conversión (interés real de avanzar)</li>
-          </ul>
-          <p class="body-text">Esto aplica igual sin importar el canal por el que esté escribiendo el cliente.</p>
+          <div class="subsection-title"><span class="subsection-num">1.2</span>Filtrar por categoría de producto STRAVEN</div>
+          <p class="body-text">En el filtro vas a colocar <strong>"Órdenes de venta"</strong> y luego vas a presionar sobre <strong>"Filtro personalizado"</strong>.</p>
+          <div class="manual-figure">
+            <img src="img/manual-reporte-clientes/paso2-filtro-personalizado.png" alt="Menú de filtros en Odoo: Órdenes de venta y Agregar filtro personalizado">
+            <figcaption>Menú de filtros: activa "Órdenes de venta" y luego "Agregar filtro personalizado".</figcaption>
+          </div>
+          <p class="body-text">El filtro lo vas a personalizar de la siguiente forma:</p>
+          <ol class="steps">
+            <li>Regla: <strong>Líneas de la orden → Producto → Categoría del producto</strong></li>
+            <li>Condición: <strong>contiene</strong></li>
+            <li>Valor: <strong>Straven</strong></li>
+          </ol>
+          <div class="manual-figure">
+            <img src="img/manual-reporte-clientes/paso2-modificar-condicion.png" alt="Modificar condición: Líneas de la orden > Producto > Categoría del producto contiene Straven">
+            <figcaption>Así se ve la condición configurada antes de darle "Confirmar".</figcaption>
+          </div>
+          <div class="alert alert-warn">
+            <div class="alert-icon"></div>
+            <div class="alert-body"><strong>Requisito indispensable:</strong> para que este filtro funcione, todos los productos de STRAVEN deben estar correctamente categorizados con la categoría padre <em>STRAVEN</em>. Si un producto no tiene esa categoría asignada, no va a aparecer en el listado aunque sí se haya vendido.</div>
+          </div>
         </div>
 
         <!-- 1.3 -->
         <div id="s1-3" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">1.3</span>Camino A — Tú detectas el interés primero</div>
-          <p class="body-text">Si tú (agente humano) notas estas señales antes que el sistema:</p>
-          <ol class="steps">
-            <li><strong>Interrumpe la conversación</strong> escribiéndole directamente al cliente para guiarlo mejor de lo que el bot podría hacerlo.</li>
-            <li>En cuanto envías ese mensaje manual, <strong>el bot se apaga automáticamente</strong> para ese contacto.</li>
-            <li>Tú debes <strong>mover manualmente</strong> al lead, dentro del pipeline, del stage <em>"Lead"</em> al stage <em>"Interesado"</em>. Esto no sucede solo — es una acción que te toca hacer a ti.</li>
-          </ol>
-        </div>
-
-        <!-- 1.4 -->
-        <div id="s1-4" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">1.4</span>Camino B — El bot detecta el interés primero</div>
-          <p class="body-text">Si es el propio bot quien identifica que el cliente está muy interesado:</p>
-          <ol class="steps">
-            <li>El sistema mueve automáticamente al lead al stage <em>"Interesado"</em> dentro del pipeline.</li>
-            <li>Se <strong>notifica a un agente</strong> de atención al cliente para que revise y tome la conversación.</li>
-            <li><strong>El bot se apaga automáticamente</strong> en ese momento.</li>
-          </ol>
-        </div>
-
-        <!-- 1.5 -->
-        <div id="s1-5" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">1.5</span>¿El bot se puede volver a activar?</div>
-          <p class="body-text">Sí. Si el bot se apagó por error (falsa alarma, o el cliente ya resolvió su duda y quieres que el bot vuelva a atenderlo), se puede reactivar manualmente activando el Workflow <strong>"Atención Automática"</strong> sobre ese contacto.</p>
-          <div class="alert alert-warn">
-            <div class="alert-icon"></div>
-            <div class="alert-body"><strong>Solo para usuarios con permiso</strong> — si no sabes cómo, pide ayuda antes de intentarlo, para evitar activarlo sobre el contacto equivocado.</div>
+          <div class="subsection-title"><span class="subsection-num">1.3</span>Filtrar por monto total</div>
+          <p class="body-text">Agrega un segundo filtro con el monto total que quieres que te muestre el listado. Por ejemplo, si solo quieres ver cotizaciones con un monto superior a $1,000, tienes que crear un filtro personalizado adicional de <strong>"&gt;1000"</strong> sobre el campo <strong>Total</strong>.</p>
+          <div class="manual-figure">
+            <img src="img/manual-reporte-clientes/paso3-filtro-monto.png" alt="Agregar filtro personalizado: Total > 1000">
+            <figcaption>Filtro de monto: Total &gt; 1000 (ajusta el número según el umbral que necesites).</figcaption>
           </div>
-        </div>
-
-        <!-- 1.6 -->
-        <div id="s1-6" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">1.6</span>El reloj de conversaciones (SLA)</div>
-          <p class="body-text">Verás un ícono de reloj en cada conversación que cambia de color:</p>
-          <div class="clock-row">
-            <div class="clock-item clock-orange">🟠 <span><strong>Naranja</strong> — 5 minutos sin responder. Se está por vencer el tiempo.</span></div>
-            <div class="clock-item clock-red">🔴 <span><strong>Rojo</strong> — 10 minutos sin responder. Ya se tardó demasiado.</span></div>
-          </div>
-          <p class="body-text">Mientras el bot está activo, el bot responde al instante y esto no debería aparecer. Cuando el bot está apagado, <strong>la responsabilidad de responder rápido es tuya</strong>. Debes estar pendiente para que el reloj nunca llegue a rojo.</p>
-        </div>
-
-        <!-- 1.7 -->
-        <div id="s1-7" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">1.7</span>Regla de oro</div>
-          <div class="alert alert-star">
+          <div class="alert alert-note">
             <div class="alert-icon"></div>
-            <div class="alert-body"><strong>Siempre sé tú quien manda el último mensaje.</strong> Nunca dejes una conversación donde el cliente escribió y nadie le respondió.</div>
+            <div class="alert-body">Este filtro es opcional, pero muy útil si solo quieres identificar clientes que compran paquetes grandes, no compras sueltas de bajo monto.</div>
           </div>
         </div>
       </div>
@@ -689,75 +636,51 @@ img{ max-width:100%; display:block; }
         <div class="section-header">
           <div class="section-number">2</div>
           <div>
-            <div class="section-title-text">Gestión de Leads Interesados</div>
-            <div class="section-tag">Conversión y Seguimiento</div>
+            <div class="section-title-text">Exportar el listado</div>
+            <div class="section-tag">De Odoo a Excel (XLSX)</div>
           </div>
         </div>
 
+        <p class="body-text">Con los filtros ya aplicados (categoría STRAVEN + monto, si lo usaste), el siguiente paso es descargar ese listado como archivo Excel.</p>
+
         <!-- 2.1 -->
         <div id="s2-1" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">2.1</span>¿Qué significa que un lead esté en "Interesado"?</div>
-          <p class="body-text">Un cliente llega al stage <em>"Interesado"</em> de dos formas: porque el bot detectó su interés automáticamente, o porque un agente lo movió manualmente al notar señales de conversión (ver Sección 1).</p>
-          <div class="alert alert-note">
-            <div class="alert-icon"></div>
-            <div class="alert-body"><strong>Esta es la etapa de mayor prioridad después de la venta misma.</strong> Los leads aquí son tibios o calientes — es donde se define si se convierten en clientes o se pierden. Deben atenderse con prioridad sobre cualquier otra conversación.</div>
+          <div class="subsection-title"><span class="subsection-num">2.1</span>Seleccionar todas las órdenes</div>
+          <ol class="steps">
+            <li>Primero haz click sobre el <strong>checkbox padre</strong> (la casilla de la esquina superior izquierda de la tabla) para seleccionar las órdenes visibles en la página.</li>
+            <li>Odoo te va a ofrecer seleccionar <strong>todas</strong> las órdenes que cumplen el filtro, no solo las de la página actual. Haz click en <strong>"Seleccionar todos"</strong> para incluir el listado completo.</li>
+          </ol>
+          <div class="manual-figure">
+            <img src="img/manual-reporte-clientes/paso4-1-seleccionar-checkbox.png" alt="Lista de cotizaciones con el checkbox padre activado, mostrando 80 seleccionados y la opción Seleccionar todos 1884">
+            <figcaption>Primero se marca el checkbox de la cabecera de la tabla.</figcaption>
+          </div>
+          <div class="manual-figure">
+            <img src="img/manual-reporte-clientes/paso4-2-seleccionar-todos.png" alt="Botón para seleccionar todos los registros que cumplen el filtro">
+            <figcaption>Odoo ofrece extender la selección a todos los registros del filtro, no solo la página visible.</figcaption>
           </div>
         </div>
 
         <!-- 2.2 -->
         <div id="s2-2" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">2.2</span>Tu objetivo en esta etapa</div>
-          <p class="body-text">Como agente de atención al cliente, tu trabajo es <strong>empujar activamente la conversión</strong> usando las herramientas disponibles:</p>
-          <ul class="bullets">
-            <li>Catálogo de productos</li>
-            <li>Promociones vigentes</li>
-            <li>Videos explicativos</li>
-            <li>Videollamadas</li>
-            <li>Cualquier otro recurso que ayude a cerrar la venta</li>
-          </ul>
+          <div class="subsection-title"><span class="subsection-num">2.2</span>Exportar desde Acciones</div>
+          <p class="body-text">Con todo seleccionado, da click en el botón <strong>"Acciones"</strong> y luego en <strong>"Exportar"</strong>.</p>
+          <div class="manual-figure">
+            <img src="img/manual-reporte-clientes/paso4-3-exportar-acciones.png" alt="Menú de Acciones con la opción Exportar resaltada">
+            <figcaption>Menú "Acciones" → "Exportar".</figcaption>
+          </div>
         </div>
 
         <!-- 2.3 -->
         <div id="s2-3" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">2.3</span>Escenario A — El cliente quiere cotizar</div>
-          <p class="body-text">Cuando, después de tu proceso de conversión, el cliente muestra que ya quiere avanzar a cotizar formalmente:</p>
-          <ol class="steps">
-            <li>Tú (agente de atención) debes <strong>mover manualmente</strong> al cliente al pipeline/stage <em>"Cotización"</em>.</li>
-            <li>Al hacerlo, el sistema automáticamente:<br><br>
-              <ul class="bullets" style="margin-left:8px; margin-top:4px;">
-                <li>Te quita a ti (agente de atención) de la conversación.</li>
-                <li>Asigna a un <strong>agente de ventas</strong> para que continúe el proceso.</li>
-              </ul>
-            </li>
-            <li>Este lead pasa a tener <strong>prioridad máxima</strong>, ya que es donde se define la venta.</li>
-          </ol>
-        </div>
-
-        <!-- 2.4 -->
-        <div id="s2-4" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">2.4</span>Escenario B — El cliente deja de responder o pospone</div>
-          <p class="body-text"><strong>¿Cuándo mover a "Indeciso"?</strong> Cuando se cumpla cualquiera de estas dos señales:</p>
-          <ul class="bullets">
-            <li>Pasaron <strong>72 horas sin respuesta</strong> del cliente a tu último mensaje, o</li>
-            <li>El cliente da una <strong>respuesta de aplazamiento</strong> ("lo voy a pensar", "te aviso después", "ahora no puedo") sin dar fecha concreta — en este caso, muévelo de inmediato, no esperes las 72 horas.</li>
-          </ul>
-          <p class="body-text" style="margin-top:18px;"><strong>Qué hacer:</strong></p>
-          <ol class="steps">
-            <li>Mueve manualmente al cliente al stage <em>"Indeciso"</em>.</li>
-            <li>A partir de ahí, el sistema envía <strong>recordatorios automáticos</strong> (promociones, seguimiento) — tú no tienes que hacer nada manual en este paso.</li>
-          </ol>
-        </div>
-
-        <!-- 2.5 -->
-        <div id="s2-5" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">2.5</span>Qué pasa después de "Indeciso"</div>
-          <ul class="bullets">
-            <li>Si el cliente <strong>responde</strong> a cualquiera de los recordatorios automáticos → el sistema lo regresa automáticamente al stage <em>"Interesado"</em>, y retomas la conversación.</li>
-            <li>Si el cliente <strong>no responde</strong> después del 3er recordatorio → se mueve automáticamente a <em>"Lead Perdido"</em>.</li>
-          </ul>
-          <div class="alert alert-warn">
+          <div class="subsection-title"><span class="subsection-num">2.3</span>Elegir la plantilla y el formato</div>
+          <p class="body-text">En la ventana de <strong>"Exportar datos"</strong>, selecciona la plantilla que ya está creada llamada <strong>"Reporte STRAVEN"</strong> y descarga en formato <strong>XLSX</strong>.</p>
+          <div class="manual-figure">
+            <img src="img/manual-reporte-clientes/paso4-4-exportar-datos.png" alt="Ventana Exportar datos con la plantilla Reporte STRAVEN seleccionada y formato XLSX">
+            <figcaption>Plantilla "Reporte STRAVEN" ya trae los campos correctos: Cliente, Cliente/Celular, Cliente/Número de órdenes de PdV, Cliente/Número de órdenes de venta y Total.</figcaption>
+          </div>
+          <div class="alert alert-note">
             <div class="alert-icon"></div>
-            <div class="alert-body"><strong>Por qué esto es importante:</strong> si no mueves al lead a "Indeciso" a tiempo, se pierde entre la totalidad de contactos y nunca entra a la secuencia de recordatorios — perdiendo una oportunidad de venta que se pudo haber rescatado.</div>
+            <div class="alert-body">Si la plantilla "Reporte STRAVEN" no aparece en la lista, pide a un compañero con permisos de administrador que la comparta o vuelva a crearla con esos mismos campos.</div>
           </div>
         </div>
       </div>
@@ -767,100 +690,77 @@ img{ max-width:100%; display:block; }
         <div class="section-header">
           <div class="section-number">3</div>
           <div>
-            <div class="section-title-text">Cierre de Venta y Cotizaciones No Concretadas</div>
-            <div class="section-tag">Rol del Agente de Ventas</div>
+            <div class="section-title-text">Generar el reporte final</div>
+            <div class="section-tag">Tabla dinámica en Excel</div>
           </div>
         </div>
 
         <!-- 3.1 -->
         <div id="s3-1" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">3.1</span>Rol del agente de ventas</div>
-          <p class="body-text">El agente de ventas debe tomar la cotización y llevar a cabo la venta utilizando todos los medios disponibles: catálogo, promociones, videollamadas, visitas, etc.</p>
-        </div>
-
-        <!-- 3.2 -->
-        <div id="s3-2" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">3.2</span>Escenario A — Venta exitosa y cerrada por completo</div>
-          <p class="body-text">Solo cuando ya no hay ninguna comunicación pendiente con el cliente (se le enviaron guías, comprobantes, facturas, etc.), el agente de ventas debe mover al cliente al stage <em>"Venta Realizada"</em>.</p>
-          <div class="alert alert-warn">
-            <div class="alert-icon"></div>
-            <div class="alert-body"><strong>No muevas al cliente aquí solo porque pagó</strong> — espera a que todo el proceso post-venta esté 100% cerrado (documentos, envíos, confirmaciones).</div>
-          </div>
-          <p class="body-text" style="margin-top:18px;"><strong>Qué pasa al moverlo:</strong></p>
-          <ol class="steps">
-            <li>El <strong>Contact Type</strong> del cliente cambia a <em>"Customer"</em> (esto no es un Tag — es el campo Contact Type).</li>
-            <li>Esto permite tener control de clientes reales para futuras segundas ventas, promociones especiales, etc.</li>
-            <li>El <strong>Owner/Assigned User</strong> se mantiene con el mismo agente de ventas de forma permanente — es quien queda responsable de ese cliente para cualquier venta futura.</li>
-          </ol>
-        </div>
-
-        <!-- 3.3 -->
-        <div id="s3-3" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">3.3</span>Escenario B — La venta no se concreta</div>
-          <p class="body-text">Cuando el cliente no paga, pospone su visita, deja de contestar, o cualquier otro motivo impide cerrar la venta.</p>
-          <p class="body-text"><strong>Cuándo hacerlo:</strong> después de 7 días sin respuesta, o de que el cliente posponga repetidamente su compra.</p>
-          <p class="body-text"><strong>Qué hacer:</strong></p>
-          <ol class="steps">
-            <li>Agrega el Tag <em>"Cotizado"</em> al contacto.</li>
-            <li>Mueve al cliente al stage <em>"Indeciso"</em>.</li>
-          </ol>
-          <div class="alert alert-note">
-            <div class="alert-icon"></div>
-            <div class="alert-body"><strong>"Indeciso" es el mismo stage que ya conoces de la Sección 2</strong> — no es un stage distinto. La diferencia está en el Tag <em>"Cotizado"</em>: gracias a ese tag, el sistema sabe que este cliente ya llegó hasta la fase de Cotización antes de enfriarse, y le envía recordatorios especializados (distintos a los de un "Interesado" que nunca llegó a cotizar).</div>
-          </div>
-        </div>
-
-        <!-- 3.4 -->
-        <div id="s3-4" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">3.4</span>Qué pasa después de este "Indeciso" (con Tag "Cotizado")</div>
-          <ul class="bullets">
-            <li>Si el cliente <strong>responde</strong> a los recordatorios automáticos → regresa directamente al stage <em>"Cotización"</em> (no a "Interesado"), ya que el Tag "Cotizado" indica al sistema en qué fase se había quedado. El mismo agente de ventas retoma la conversación.</li>
-            <li>Si el cliente <strong>no responde</strong> después del 3er recordatorio → se mueve automáticamente a <em>"Lead Perdido"</em>.</li>
-          </ul>
-          <p class="body-text" style="margin-top:22px;"><strong>Tabla resumen: cómo identificar el tipo de "Indeciso"</strong></p>
+          <div class="subsection-title"><span class="subsection-num">3.1</span>Qué trae el archivo XLSX</div>
+          <p class="body-text">El archivo que descargaste te va a entregar 5 columnas:</p>
           <div class="manual-table-wrap">
             <table class="manual-table">
               <thead>
                 <tr>
-                  <th>Situación del cliente</th>
-                  <th>Tag presente</th>
-                  <th>Al responder, regresa a…</th>
+                  <th>Columna</th>
+                  <th>Qué significa</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Se enfrió estando en <strong>"Interesado"</strong> (nunca cotizó)</td>
-                  <td><span class="tag-pill tag-gray">Sin tag "Cotizado"</span></td>
-                  <td><strong>"Interesado"</strong></td>
+                  <td><strong>Cliente</strong></td>
+                  <td>Nombre del cliente.</td>
                 </tr>
                 <tr>
-                  <td>Se enfrió estando en <strong>"Cotización"</strong> (ya había cotizado)</td>
-                  <td><span class="tag-pill tag-green">Con tag "Cotizado"</span></td>
-                  <td><strong>"Cotización"</strong></td>
+                  <td><strong>Cliente/Celular</strong></td>
+                  <td>Número de contacto del cliente.</td>
+                </tr>
+                <tr>
+                  <td><strong>Cliente/Número de órdenes de PdV</strong></td>
+                  <td>Cuántas veces ha comprado ese cliente <strong>en la tienda física</strong> (Punto de Venta).</td>
+                </tr>
+                <tr>
+                  <td><strong>Cliente/Número de órdenes de venta</strong></td>
+                  <td>Cuántas veces le ha comprado ese cliente <strong>por medio de una vendedora</strong> (Órdenes de venta).</td>
+                </tr>
+                <tr>
+                  <td><strong>Total</strong></td>
+                  <td>Monto de cada orden individual.</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
 
-        <!-- 3.5 -->
-        <div id="s3-5" class="subsection" data-searchable>
-          <div class="subsection-title"><span class="subsection-num">3.5</span>Reactivación espontánea de un cliente ("Venta Realizada" → nueva compra)</div>
-          <p class="body-text">Cuando un cliente que ya está en el stage <em>"Venta Realizada"</em> (Contact Type: Customer) vuelve a escribir por su propia cuenta — es decir, no como respuesta a una automatización, sino porque él mismo inició contacto mostrando interés:</p>
+        <!-- 3.2 -->
+        <div id="s3-2" class="subsection" data-searchable>
+          <div class="subsection-title"><span class="subsection-num">3.2</span>Armar la tabla dinámica</div>
+          <p class="body-text">Para generar el reporte agrupado por cliente, vas a crear una <strong>Tabla dinámica</strong> en la celda <strong>H1</strong> configurada de la siguiente manera:</p>
           <ol class="steps">
-            <li><strong>El bot nunca interviene aquí.</strong> Los bots solo atienden a leads que escriben por primera vez; un cliente que ya compró siempre se dirige directo a un humano.</li>
-            <li>La conversación llega directamente a <strong>su vendedor asignado</strong> (el mismo que hizo la venta anterior — el Owner no cambió, como vimos en 3.2).</li>
-            <li>Ese mismo vendedor debe <strong>mover manualmente</strong> al cliente de vuelta al stage <em>"Interesado"</em>.</li>
-            <li>
-              <div class="alert alert-warn" style="margin:0;">
-                <div class="alert-icon"></div>
-                <div class="alert-body">Este movimiento <strong>no dispara ninguna automatización</strong> — es únicamente para llevar control interno de en qué fase está la conversación.</div>
-              </div>
-            </li>
-            <li>A partir de ahí, se repiten los mismos procesos ya descritos: si el cliente decide cotizar, se mueve a <em>"Cotización"</em> (Sección 2.3); si se enfría, sigue el proceso de "Indeciso" con Tag "Cotizado" (Sección 3.3).</li>
+            <li><strong>Filas:</strong> agrega el campo <em>Cliente</em>, orden ascendente, ordenado por Cliente, con la casilla <strong>"Mostrar totales"</strong> activada.</li>
+            <li><strong>Valores → Cliente:</strong> sumar por <strong>COUNTA</strong> (esto cuenta cuántas órdenes tiene cada cliente).</li>
+            <li><strong>Valores → Total:</strong> sumar por <strong>SUM</strong> (esto suma el monto total comprado por cada cliente).</li>
           </ol>
+          <div class="manual-figure">
+            <img src="img/manual-reporte-clientes/paso5-tabla-dinamica.png" alt="Editor de tablas dinámicas: Filas = Cliente, Valores = Cliente (COUNTA) y Total (SUM)">
+            <figcaption>Configuración del Editor de tablas dinámicas: Filas → Cliente, Valores → Cliente (COUNTA) y Total (SUM).</figcaption>
+          </div>
         </div>
 
+        <!-- 3.3 -->
+        <div id="s3-3" class="subsection" data-searchable>
+          <div class="subsection-title"><span class="subsection-num">3.3</span>Cómo leer el resultado</div>
+          <p class="body-text">Una vez armada la tabla dinámica, vas a tener, por cada cliente, cuántas veces ha comprado en total (sumando PdV + Órdenes de venta) y el monto total que ha gastado en productos STRAVEN.</p>
+          <ul class="bullets">
+            <li>Para saber si un cliente ha comprado <strong>una cantidad determinada de veces</strong>, ordena la tabla dinámica de mayor a menor por la columna de conteo (COUNTA) y filtra visualmente el umbral que necesites (por ejemplo, clientes con 3 o más compras).</li>
+            <li>Recuerda que las columnas <strong>Número de órdenes de PdV</strong> y <strong>Número de órdenes de venta</strong> del archivo original te permiten distinguir si esas compras fueron en tienda física o con una vendedora, algo que la tabla dinámica no separa por defecto.</li>
+          </ul>
+          <div class="alert alert-star">
+            <div class="alert-icon"></div>
+            <div class="alert-body"><strong>Para qué sirve este reporte:</strong> con este listado puedes identificar a los clientes más frecuentes de STRAVEN para campañas de recompra, dar seguimiento personalizado a mayoristas recurrentes, y detectar clientes que han bajado su frecuencia de compra.</div>
+          </div>
+        </div>
       </div>
       <!-- end s3 -->
 
@@ -990,7 +890,7 @@ function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace
 document.getElementById('search-input').addEventListener('search', function(){ searchManual(''); });
 
 // Active nav on scroll
-const navTargets = ['intro','s1','s1-1','s1-2','s1-3','s1-4','s1-5','s1-6','s1-7','s2','s2-1','s2-2','s2-3','s2-4','s2-5','s3','s3-1','s3-2','s3-3','s3-4','s3-5'];
+const navTargets = ['intro','s1','s1-1','s1-2','s1-3','s2','s2-1','s2-2','s2-3','s3','s3-1','s3-2','s3-3'];
 function updateActiveNav(){
   let current = navTargets[0];
   navTargets.forEach(id => {
